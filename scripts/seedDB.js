@@ -3,7 +3,7 @@ const db = require("../models");
 
 mongoose.connect(
     process.env.MONGODB_URI || 
-    "mongodb://localhost/employees"
+    "mongodb://localhost/manager_scheduling_app"
 );
 
 const employeeSeed = [
