@@ -1,3 +1,5 @@
 module.exports = {
-    Employee: require("./employee")
+    Users: require("./user"),
+    Employees: require("./employee"),
+    Shifts: require("./shifts")
 };
