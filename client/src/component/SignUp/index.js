@@ -17,6 +17,7 @@ class SignUp extends Component {
         const { email, passwordOne } = this.state;
         console.log(email);
         return fireAuth.createUserWithEmailAndPassword(email, passwordOne).then(() => {
+            this.setState({ email: '', passwordOne: '', passwordTwo: ''});
             console.log("Success");
         })
         .catch(error => {
