@@ -6,19 +6,32 @@ import Landing from './component/Landing';
 import SignUp from './component/SignUp';
 import SignIn from './component/SignIn';
 import Home from './component/Home';
+import { fireAuth } from "./component/Firebase";
 
 class App extends Component {
+  state = {
+    authUser: null
+  }
+
+  componentDidMount() {
+    fireAuth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    })
+  }
+
 
   render() {
 
     return (
       <Router>
-        <Navigation />
+        <Navigation authUser={this.state.authUser} />
         <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/SignUp" component={SignUp} />
-            <Route exact path="/SignIn" component={SignIn} />
-            <Route exact path="/Home" component={Home} />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/SignUp" component={SignUp} />
+          <Route exact path="/SignIn" component={SignIn} />
+          <Route exact path="/Home" component={Home} />
         </Switch>
 
       </Router>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
 import { fireAuth } from "../Firebase";
-import Home from '../Home';
 
 class SignUp extends Component {
 

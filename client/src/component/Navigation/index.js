@@ -14,8 +14,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Navigation = () => {
-
+const Navigation = ({ authUser }) => {
+    console.log(authUser);
     const classes = useStyles();
 
     return (
@@ -28,6 +28,7 @@ const Navigation = () => {
                     <Button color="inherit" component={Link} to="/">Home</Button> 
                     <Button color="inherit" component={Link} to="/SignUp">SignUp</Button>
                     <Button color="inherit" component={Link} to="/SignIn">Login</Button>
+                    <Button color="inherit" component={Link} to="/SignOut">SignOut </Button>
                 </Toolbar>
             </AppBar>
         </div>
