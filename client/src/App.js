@@ -12,7 +12,6 @@ class App extends Component {
 
     return (
       <Router>
-
         <Navigation />
         <Switch>
             <Route exact path="/" component={Landing} />
