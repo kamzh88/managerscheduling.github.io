@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, makeStyles } from '@material-ui/core';
+import { fireAuth } from "../Firebase";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,11 +25,11 @@ const Navigation = ({ authUser }) => {
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         Manager Scheduling Application
-                    </Typography> 
-                    <Button color="inherit" component={Link} to="/">Home</Button> 
+                    </Typography>
+                    <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/SignUp">SignUp</Button>
                     <Button color="inherit" component={Link} to="/SignIn">Login</Button>
-                    <Button color="inherit" component={Link} to="/SignOut">SignOut </Button>
+                    <Button color="inherit" onClick={() => fireAuth.signOut()}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </div>
