@@ -1,24 +1,23 @@
-import React, { Component, Fragment } from "react";
-import { Typography, TextField, Button, CircularProgress } from '@material-ui/core';
+import React, { Component } from "react";
+import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
+// import { fireAuth } from "";
 
 class SignUp extends Component {
 
     state = {
         email: '',
-        password: '',
+        passwordOne: '',
         passwordTwo: '',
-        submitting: false
     }
 
-    handleSubmit = e => {
+    onSubmit = e => {
         e.preventDefault();
-        const { onSubmit } = this.props;
-        const { email, password } = this.state;
-        if (onSubmit) {
-            this.setState({ submitting: true });
-            onSubmit(email, password);
-        }
+        const { email, passwordOne } = this.state;
+        console.log(email);
+        // return fireAuth.signInWithEmailAndPassword(email, passwordOne).then(() => {
+        //     console.log("Success")
+        // })
     }
 
     handleChange = key => e => {
@@ -27,7 +26,7 @@ class SignUp extends Component {
 
     render() {
 
-        const { email, password, submitting, passwordTwo } = this.state;
+        const { email, passwordOne, passwordTwo } = this.state;
 
         return (
             <Wrapper>
@@ -36,7 +35,7 @@ class SignUp extends Component {
                 </Typography>
                 <form
                     style={{ display: "flex", flexDirection: "column" }}
-                    onSubmit={this.handleSubmit}
+                    onSubmit={this.onSubmit}
                 >
                     <TextField
                         style={{ marginBottom: 24 }}
@@ -53,8 +52,8 @@ class SignUp extends Component {
                         required
                         type={"password"}
                         label={"Password"}
-                        value={password}
-                        onChange={this.handleChange("password")}
+                        value={passwordOne}
+                        onChange={this.handleChange("passwordOne")}
                     />
                     <TextField
                         style={{ marginBottom: 24 }}
@@ -71,15 +70,7 @@ class SignUp extends Component {
                         variant={"contained"}
                         color={"primary"}
                     >
-                        {submitting ? (
-                            <CircularProgress
-                                style={{ color: "#fff" }}
-                                color={"inherit"}
-                                size={1}
-                            />
-                        ) : (
-                                "Submit"
-                            )}
+                        Submit
                     </Button>
                 </form>
             </Wrapper>
