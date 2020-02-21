@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
-// import { fireAuth } from "";
+import { fireAuth } from "../Firebase";
+import Home from '../Home';
 
 class SignUp extends Component {
 
@@ -9,15 +10,20 @@ class SignUp extends Component {
         email: '',
         passwordOne: '',
         passwordTwo: '',
+        error: null,
     }
 
     onSubmit = e => {
         e.preventDefault();
         const { email, passwordOne } = this.state;
         console.log(email);
-        // return fireAuth.signInWithEmailAndPassword(email, passwordOne).then(() => {
-        //     console.log("Success")
-        // })
+        return fireAuth.createUserWithEmailAndPassword(email, passwordOne).then(() => {
+            this.setState({ email: '', passwordOne: '', passwordTwo: ''});
+            this.props.history.push('/home');
+        })
+        .catch(error => {
+            this.setState({ error });
+        })
     }
 
     handleChange = key => e => {
@@ -26,7 +32,9 @@ class SignUp extends Component {
 
     render() {
 
-        const { email, passwordOne, passwordTwo } = this.state;
+        const { email, passwordOne, passwordTwo, error } = this.state;
+
+        const isInvalid = passwordOne !== passwordTwo;
 
         return (
             <Wrapper>
@@ -69,9 +77,11 @@ class SignUp extends Component {
                         fullWidth
                         variant={"contained"}
                         color={"primary"}
+                        disabled={isInvalid}
                     >
                         Submit
                     </Button>
+                    {error && <p>{error.message}</p>}
                 </form>
             </Wrapper>
         )
