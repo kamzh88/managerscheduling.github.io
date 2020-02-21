@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
 import { fireAuth } from "../Firebase";
+import Home from '../Home';
 
 class SignUp extends Component {
 
@@ -18,7 +19,7 @@ class SignUp extends Component {
         console.log(email);
         return fireAuth.createUserWithEmailAndPassword(email, passwordOne).then(() => {
             this.setState({ email: '', passwordOne: '', passwordTwo: ''});
-            console.log("Success");
+            this.props.history.push('/home');
         })
         .catch(error => {
             this.setState({ error });

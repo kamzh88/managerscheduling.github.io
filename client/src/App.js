@@ -5,6 +5,7 @@ import './App.css';
 import Landing from './component/Landing';
 import SignUp from './component/SignUp';
 import SignIn from './component/SignIn';
+import Home from './component/Home';
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/SignUp" component={SignUp} />
             <Route exact path="/SignIn" component={SignIn} />
+            <Route exact path="/Home" component={Home} />
         </Switch>
 
       </Router>
