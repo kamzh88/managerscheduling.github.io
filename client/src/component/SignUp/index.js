@@ -33,6 +33,8 @@ class SignUp extends Component {
 
         const { email, passwordOne, passwordTwo, error } = this.state;
 
+        const isInvalid = passwordOne !== passwordTwo;
+
         return (
             <Wrapper>
                 <Typography variant="h5" style={{ marginTop: 24, marginBottom: 24 }}>
@@ -74,6 +76,7 @@ class SignUp extends Component {
                         fullWidth
                         variant={"contained"}
                         color={"primary"}
+                        disabled={isInvalid}
                     >
                         Submit
                     </Button>
