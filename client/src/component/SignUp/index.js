@@ -7,6 +7,7 @@ class SignUp extends Component {
     state = {
         email: '',
         password: '',
+        passwordTwo: '',
         submitting: false
     }
 
@@ -26,7 +27,7 @@ class SignUp extends Component {
 
     render() {
 
-        const { email, password, submitting } = this.state;
+        const { email, password, submitting, passwordTwo } = this.state;
 
         return (
             <Wrapper>
@@ -54,6 +55,15 @@ class SignUp extends Component {
                         label={"Password"}
                         value={password}
                         onChange={this.handleChange("password")}
+                    />
+                    <TextField
+                        style={{ marginBottom: 24 }}
+                        variant={"outlined"}
+                        required
+                        type={"password"}
+                        label={"Confirm Password"}
+                        value={passwordTwo}
+                        onChange={this.handleChange("passwordTwo")}
                     />
                     <Button
                         type={"submit"}
