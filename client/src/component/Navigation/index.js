@@ -15,12 +15,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Navigation = ({ authUser }) => (
-    <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
-);
+const Navigation = ({ authUser }) => {
+    
+    return (
+        <div>{authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth authUser={authUser} />}</div>
+    )
+};
 
 const NavigationAuth = () => {
-
+   
     const classes = useStyles();
 
     return (
@@ -30,7 +33,12 @@ const NavigationAuth = () => {
                     <Typography variant="h6" className={classes.title}>
                         Manager Scheduling Application
                     </Typography>
-                    <Button color="inherit" component={Link} to="/Home">Home</Button>
+                    <Button 
+                    color="inherit" 
+                    component={Link} 
+                    to={{
+                        pathname: "/Home", 
+                        }}>Home</Button>
                     <Button color="inherit" onClick={() => fireAuth.signOut()}>Logout</Button>
                 </Toolbar>
             </AppBar>
@@ -39,7 +47,7 @@ const NavigationAuth = () => {
 };
 
 const NavigationNonAuth = () => {
-
+    
     const classes = useStyles();
 
     return (
