@@ -14,7 +14,6 @@ class SignUp extends Component {
     onSubmit = e => {
         e.preventDefault();
         const { email, password } = this.state;
-        console.log(email);
         return fireAuth.signInWithEmailAndPassword(email, password).then(() => {
             this.setState({ email: '', password: '' });
             this.props.history.push('/home');

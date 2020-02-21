@@ -6,7 +6,7 @@ import Landing from './component/Landing';
 import SignUp from './component/SignUp';
 import SignIn from './component/SignIn';
 import Home from './component/Home';
-import { fireAuth } from "./component/Firebase";
+import { fireAuth } from "./component/Firebase/index";
 
 class App extends Component {
   state = {
@@ -30,7 +30,10 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route exact path="/SignUp" component={SignUp} />
           <Route exact path="/SignIn" component={SignIn} />
-          <Route exact path="/Home" component={Home} />
+          <Route
+            exact path="/Home"
+            render={props => (<Home authUser={this.state.authUser} {...props} />)}
+          />
         </Switch>
 
       </Router>
