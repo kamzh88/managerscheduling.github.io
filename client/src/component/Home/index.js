@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
-import { Typography, TextField, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 const Home = ({ authUser }) => {
     return (

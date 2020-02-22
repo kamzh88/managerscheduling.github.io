@@ -14,6 +14,10 @@ const EmployeeSchema = new Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     shifts: [
         {
             type: Schema.Types.ObjectId,

@@ -1,8 +1,15 @@
 import React, { Component, Fragment } from "react";
-import { Link } from 'react-router-dom';
-import { Typography, TextField, Button } from '@material-ui/core';
+import { Typography, TextField, Button, Card } from '@material-ui/core';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
+
+const styles = {
+    Card: {
+        marginTop: 30,
+        height: 540,
+        overflowY: 'scroll'
+    }
+}
 
 class AllEmployees extends Component {
 
@@ -10,7 +17,19 @@ class AllEmployees extends Component {
         firstName: '',
         lastName: '',
         email: '',
-        position: ''
+        position: '',
+        employees: []
+    }
+
+    componentDidMount() {
+        this.loadEmployees();
+    }
+
+    loadEmployees = () => {
+        API.getEmployees()
+            .then(res =>
+                this.setState({ employees: res.data }))
+            .catch(err => console.log(err));
     }
 
     onSubmit = e => {
@@ -22,8 +41,8 @@ class AllEmployees extends Component {
             email: email,
             position: position
         })
-        .then(res => console.log("success!"))
-        .catch(err => console.log(err));
+            .then(res => console.log("success!"))
+            .catch(err => console.log(err));
     }
 
     handleChange = key => e => {
@@ -32,14 +51,15 @@ class AllEmployees extends Component {
 
     render() {
 
-        const { firstName, lastName, email, position } = this.state;
-
+        const { firstName, lastName, email, position, employees } = this.state;
+        console.log(employees);
         return (
-            <Wrapper>
-                <Fragment>
+
+            <Fragment>
+                <Wrapper>
                     <Typography variant="h5" style={{ marginTop: 24, marginBottom: 24 }}>
                         Employees Form
-                </Typography>
+                    </Typography>
                     <form
                         style={{ display: "flex", flexDirection: "column" }}
                         onSubmit={this.onSubmit}
@@ -90,8 +110,23 @@ class AllEmployees extends Component {
                             Submit
                     </Button>
                     </form>
-                </Fragment>
-            </Wrapper>
+                </Wrapper>
+                <div style={styles.Card}>
+                    <Card variant="outlined">
+                        {employees.map((employee, index) => (
+                            <Card key={index} variant="outlined" style={{ width: "auto", margin: 20 }}>
+                                <div style={{ overflow: "auto", padding: 10 }}>
+                                    <p>Name: {employee.firstName} {employee.lastName}</p>
+                                    <p>Position: {employee.position}</p>
+                                    <p>Email: {employee.email}</p>
+                                    <p>Shifts:</p>
+                                </div>
+                            </Card>
+                        ))}
+                    </Card>
+                </div>
+            </Fragment>
+
         )
     }
 };
