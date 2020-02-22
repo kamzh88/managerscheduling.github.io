@@ -1,8 +1,10 @@
-import Axios from "axios";
+import axios from "axios";
 
 export default {
     saveEmployee: function(employeeData) {
-        // console.log(employeeData);
-        return Axios.post("/api/employee", employeeData);
+        return axios.post("/api/employee", employeeData);
+    },
+    getEmployees: function() {
+        return axios.get("/api/employee");
     }
 }

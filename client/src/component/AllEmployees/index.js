@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { Link } from 'react-router-dom';
 import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
@@ -10,7 +9,18 @@ class AllEmployees extends Component {
         firstName: '',
         lastName: '',
         email: '',
-        position: ''
+        position: '',
+        employees: []
+    }
+
+    componentDidMount() {
+        this.loadEmployees();
+    }
+
+    loadEmployees = () => {
+        API.getEmployees()
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
 
     onSubmit = e => {
@@ -22,8 +32,8 @@ class AllEmployees extends Component {
             email: email,
             position: position
         })
-        .then(res => console.log("success!"))
-        .catch(err => console.log(err));
+            .then(res => console.log("success!"))
+            .catch(err => console.log(err));
     }
 
     handleChange = key => e => {
@@ -35,11 +45,12 @@ class AllEmployees extends Component {
         const { firstName, lastName, email, position } = this.state;
 
         return (
-            <Wrapper>
-                <Fragment>
+
+            <Fragment>
+                <Wrapper>
                     <Typography variant="h5" style={{ marginTop: 24, marginBottom: 24 }}>
                         Employees Form
-                </Typography>
+                    </Typography>
                     <form
                         style={{ display: "flex", flexDirection: "column" }}
                         onSubmit={this.onSubmit}
@@ -90,8 +101,10 @@ class AllEmployees extends Component {
                             Submit
                     </Button>
                     </form>
-                </Fragment>
-            </Wrapper>
+                </Wrapper>
+
+            </Fragment>
+
         )
     }
 };
