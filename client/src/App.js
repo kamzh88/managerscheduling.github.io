@@ -6,6 +6,7 @@ import Landing from './component/Landing';
 import SignUp from './component/SignUp';
 import SignIn from './component/SignIn';
 import Home from './component/Home';
+import AllEmployees from './component/AllEmployees';
 import { fireAuth } from "./component/Firebase/index";
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
             exact path="/Home"
             render={props => (<Home authUser={this.state.authUser} {...props} />)}
           />
+          <Route exact path="/AllEmployees" component={AllEmployees} />
         </Switch>
 
       </Router>
