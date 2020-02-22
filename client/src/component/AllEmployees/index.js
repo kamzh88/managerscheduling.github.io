@@ -1,7 +1,15 @@
 import React, { Component, Fragment } from "react";
-import { Typography, TextField, Button } from '@material-ui/core';
+import { Typography, TextField, Button, Card } from '@material-ui/core';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
+
+const styles = {
+    Card: {
+        marginTop: 30,
+        height: 540,
+        overflowY: 'scroll'
+    }
+}
 
 class AllEmployees extends Component {
 
@@ -19,7 +27,8 @@ class AllEmployees extends Component {
 
     loadEmployees = () => {
         API.getEmployees()
-            .then(res => console.log(res))
+            .then(res =>
+                this.setState({ employees: res.data }))
             .catch(err => console.log(err));
     }
 
@@ -42,8 +51,8 @@ class AllEmployees extends Component {
 
     render() {
 
-        const { firstName, lastName, email, position } = this.state;
-
+        const { firstName, lastName, email, position, employees } = this.state;
+        console.log(employees);
         return (
 
             <Fragment>
@@ -102,7 +111,20 @@ class AllEmployees extends Component {
                     </Button>
                     </form>
                 </Wrapper>
-
+                <div style={styles.Card}>
+                    <Card variant="outlined">
+                        {employees.map((employee, index) => (
+                            <Card key={index} variant="outlined" style={{ width: "auto", margin: 20 }}>
+                                <div style={{ overflow: "auto", padding: 10 }}>
+                                    <p>Name: {employee.firstName} {employee.lastName}</p>
+                                    <p>Position: {employee.position}</p>
+                                    <p>Email: {employee.email}</p>
+                                    <p>Shifts:</p>
+                                </div>
+                            </Card>
+                        ))}
+                    </Card>
+                </div>
             </Fragment>
 
         )
