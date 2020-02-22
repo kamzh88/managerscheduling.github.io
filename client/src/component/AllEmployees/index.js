@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Typography, TextField, Button, Card } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
 
@@ -11,8 +12,14 @@ const styles = {
     }
 }
 
-class AllEmployees extends Component {
+const AllEmployees = ({ authUser }) => {
+    return (
+        <div>{authUser ? <AllEmployeesAuth authUser={authUser} /> : <AllEmployeesNonAuth authUser={authUser} />}</div>
+    )
+};
 
+class AllEmployeesAuth extends Component {
+    
     state = {
         firstName: '',
         lastName: '',
@@ -52,7 +59,7 @@ class AllEmployees extends Component {
     render() {
 
         const { firstName, lastName, email, position, employees } = this.state;
-        console.log(employees);
+        console.log();
         return (
 
             <Fragment>
@@ -112,6 +119,7 @@ class AllEmployees extends Component {
                     </form>
                 </Wrapper>
                 <div style={styles.Card}>
+                    <h1>Employee List</h1>
                     <Card variant="outlined">
                         {employees.map((employee, index) => (
                             <Card key={index} variant="outlined" style={{ width: "auto", margin: 20 }}>
@@ -131,22 +139,16 @@ class AllEmployees extends Component {
     }
 };
 
-// const AllEmployeesAuth = () => {
-//     return (
-//         <Fragment>
-//             <div>All Employees</div>
-//         </Fragment>
-//     )
-// };
 
-// const AllEmployeesNonAuth = () => {
-//     return (
-//         <Fragment>
-//             <h1 style={{ textAlign: "center", marginTop: 50 }}>Please {}
-//                 <Link to="/SignIn">Sign In </Link>
-//             </h1>
-//         </Fragment>
-//     )
-// };
+
+const AllEmployeesNonAuth = () => {
+    return (
+        <Fragment>
+            <h1 style={{ textAlign: "center", marginTop: 50 }}>Please {}
+                <Link to="/SignIn">Sign In </Link>
+            </h1>
+        </Fragment>
+    )
+};
 
 export default AllEmployees;

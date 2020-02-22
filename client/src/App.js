@@ -35,7 +35,10 @@ class App extends Component {
             exact path="/Home"
             render={props => (<Home authUser={this.state.authUser} {...props} />)}
           />
-          <Route exact path="/AllEmployees" component={AllEmployees} />
+          <Route
+            exact path="/AllEmployees"
+            render={props => (<AllEmployees authUser={this.state.authUser} {...props} />)}
+          />
         </Switch>
 
       </Router>
