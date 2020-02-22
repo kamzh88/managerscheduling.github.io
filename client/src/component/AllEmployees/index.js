@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
 import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
+import API from "../../utils/API";
 
 class AllEmployees extends Component {
 
@@ -10,6 +11,19 @@ class AllEmployees extends Component {
         lastName: '',
         email: '',
         position: ''
+    }
+
+    onSubmit = e => {
+        e.preventDefault();
+        const { firstName, lastName, email, position } = this.state;
+        API.saveEmployee({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            position: position
+        })
+        .then(res => console.log("success!"))
+        .catch(err => console.log(err));
     }
 
     handleChange = key => e => {
@@ -71,7 +85,7 @@ class AllEmployees extends Component {
                             fullWidth
                             variant={"contained"}
                             color={"primary"}
-                            // disabled={isInvalid}
+                        // disabled={isInvalid}
                         >
                             Submit
                     </Button>
