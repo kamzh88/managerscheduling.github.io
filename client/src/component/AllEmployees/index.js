@@ -33,10 +33,10 @@ class AllEmployeesAuth extends Component {
     }
 
     loadEmployees = () => {
-
-        API.getEmployees()
+        API.getEmployees(this.props.authUser.uid)
             .then(res =>
-                this.setState({ employees: res.data }))
+                this.setState({ employees: res.data.employees })
+            )
             .catch(err => console.log(err));
     }
 

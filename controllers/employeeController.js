@@ -11,10 +11,11 @@ module.exports = {
 
             }).catch(err => res.status(422).json(err));
     },
-    findAll: function (req, res) {  
-        db.Employees
-            .find(req.query)
-            .then(dbModel => res.json(dbModel))
+    findbyId: function (req, res) {
+        db.Users
+            .findOne({uid: req.params.id})
+            .populate("employees")
+            .then((dbEmployee) => res.json(dbEmployee))
             .catch(err => res.status(422).json(err));
     }
 }
