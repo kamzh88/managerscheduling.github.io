@@ -34,9 +34,7 @@ class AllEmployeesAuth extends Component {
 
     loadEmployees = () => {
         API.getEmployees(this.props.authUser.uid)
-            .then(res =>
-                this.setState({ employees: res.data.employees })
-            )
+            .then(res => this.setState({ employees: res.data.employees }))
             .catch(err => console.log(err));
     }
 
@@ -44,7 +42,6 @@ class AllEmployeesAuth extends Component {
         e.preventDefault();
         const { authUser } = this.props;
         const { firstName, lastName, email, position } = this.state;
-        console.log(authUser);
         API.saveEmployee({
             firstName: firstName,
             lastName: lastName,
