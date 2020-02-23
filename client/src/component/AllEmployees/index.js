@@ -10,7 +10,7 @@ const styles = {
         height: 540,
         overflowY: 'scroll'
     }
-}
+};
 
 const AllEmployees = ({ authUser }) => {
     return (
@@ -19,7 +19,7 @@ const AllEmployees = ({ authUser }) => {
 };
 
 class AllEmployeesAuth extends Component {
-    
+
     state = {
         firstName: '',
         lastName: '',
@@ -59,7 +59,7 @@ class AllEmployeesAuth extends Component {
     render() {
 
         const { firstName, lastName, email, position, employees } = this.state;
-        console.log();
+
         return (
 
             <Fragment>
@@ -138,8 +138,6 @@ class AllEmployeesAuth extends Component {
         )
     }
 };
-
-
 
 const AllEmployeesNonAuth = () => {
     return (

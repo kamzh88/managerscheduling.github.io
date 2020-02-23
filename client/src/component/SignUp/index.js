@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Typography, TextField, Button } from '@material-ui/core';
 import Wrapper from "../Wrapper";
 import { fireAuth } from "../Firebase";
+import API from "../../utils/API";
 
 class SignUp extends Component {
 
@@ -10,19 +11,29 @@ class SignUp extends Component {
         passwordOne: '',
         passwordTwo: '',
         error: null,
+        userName: ''
     }
 
     onSubmit = e => {
         e.preventDefault();
-        const { email, passwordOne } = this.state;
-        console.log(email);
+        const { email, passwordOne, userName } = this.state;
+        // console.log(email);
         return fireAuth.createUserWithEmailAndPassword(email, passwordOne).then(() => {
-            this.setState({ email: '', passwordOne: '', passwordTwo: ''});
+            this.setState({ email: '', passwordOne: '', passwordTwo: '' });
+            fireAuth.onAuthStateChanged(user => {
+                API.saveUser({
+                    userName: userName,
+                    uid: user.uid,
+                    email: user.email,
+                    userCreated: user.metadata.creationTime
+                })
+            })
             this.props.history.push('/home');
+
         })
-        .catch(error => {
-            this.setState({ error });
-        })
+            .catch(error => {
+                this.setState({ error });
+            })
     }
 
     handleChange = key => e => {
@@ -31,7 +42,7 @@ class SignUp extends Component {
 
     render() {
 
-        const { email, passwordOne, passwordTwo, error } = this.state;
+        const { email, passwordOne, passwordTwo, error, userName } = this.state;
 
         const isInvalid = passwordOne !== passwordTwo;
 
@@ -44,6 +55,15 @@ class SignUp extends Component {
                     style={{ display: "flex", flexDirection: "column" }}
                     onSubmit={this.onSubmit}
                 >
+                    <TextField
+                        style={{ marginBottom: 24 }}
+                        variant={"outlined"}
+                        required
+                        type={"text"}
+                        label={"Username"}
+                        value={userName}
+                        onChange={this.handleChange("userName")}
+                    />
                     <TextField
                         style={{ marginBottom: 24 }}
                         variant={"outlined"}
