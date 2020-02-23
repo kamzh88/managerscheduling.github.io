@@ -3,7 +3,7 @@ const employeeRoutes = require('./employees');
 const userRoutes = require('./user');
 
 router.use("/user", userRoutes);
-// router.use("/employee", employeeRoutes );
+router.use("/employee", employeeRoutes );
 
 
 

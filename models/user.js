@@ -7,7 +7,7 @@ const UserSchema = new Schema({
        trim: true,
        required: "Username is Required"
    },
-   uID: {
+   uid: {
        type: String, 
    },
    email: {
