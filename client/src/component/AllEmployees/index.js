@@ -10,7 +10,7 @@ const styles = {
         height: 540,
         overflowY: 'scroll'
     }
-};
+}
 
 const AllEmployees = ({ authUser }) => {
     return (
@@ -33,22 +33,25 @@ class AllEmployeesAuth extends Component {
     }
 
     loadEmployees = () => {
-        API.getEmployees()
+        API.getEmployees(this.props.authUser.uid)
             .then(res =>
-                this.setState({ employees: res.data }))
+                this.setState({ employees: res.data.employees })
+            )
             .catch(err => console.log(err));
     }
 
     onSubmit = e => {
         e.preventDefault();
+        const { authUser } = this.props;
         const { firstName, lastName, email, position } = this.state;
+        console.log(authUser);
         API.saveEmployee({
             firstName: firstName,
             lastName: lastName,
             email: email,
-            position: position
-        })
-            .then(res => console.log("success!"))
+            position: position,
+            uid: authUser.uid
+        }).then(res => this.loadEmployees())
             .catch(err => console.log(err));
     }
 
@@ -138,6 +141,8 @@ class AllEmployeesAuth extends Component {
         )
     }
 };
+
+
 
 const AllEmployeesNonAuth = () => {
     return (
