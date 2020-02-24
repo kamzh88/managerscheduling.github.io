@@ -5,7 +5,6 @@ export default {
         return axios.post("/api/employee/", employeeData);
     },
     getEmployees: function(id) {
-        console.log(id);
         return axios.get("/api/employee/" + id);
     },
     saveUser: function(userData) {

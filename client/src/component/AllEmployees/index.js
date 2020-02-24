@@ -148,7 +148,7 @@ const AllEmployeesNonAuth = () => {
     return (
         <Fragment>
             <h1 style={{ textAlign: "center", marginTop: 50 }}>Please {}
-                <Link to="/SignIn">Sign In </Link>
+                <Link to="/SignIn">Sign In</Link>
             </h1>
         </Fragment>
     )
