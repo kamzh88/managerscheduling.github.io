@@ -29,7 +29,9 @@ class Calendar extends Component {
     }
 
     render() {
-        console.log(this.state.employees);
+
+        const { employees } = this.state;
+        console.log(employees);
 
         return (
             <div>
@@ -48,39 +50,19 @@ class Calendar extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Employee A</td>
-                            <td>11am-8pm</td>
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td>
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td>
-                            <td>3pm-11pm</td>
-                            <td>3pm-11pm</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Employee B</td>
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td>
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td>
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td>
-                            <td>11am-8pm</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Employee C</td>
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td>   
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td> 
-                            <td>3pm-11pm</td>
-                            <td>11am-8pm</td> 
-                            <td>11am-8pm</td> 
-                        </tr>
+                        {employees.map((employee, index) => (
+                            <tr key={index}>
+                                <td>{index}</td>
+                                <td>{`${employee.firstName} ${employee.lastName}`}</td>
+                                <td>{employee.shifts}</td>
+                                <td>{employee.shifts}</td>
+                                <td>{employee.shifts}</td>
+                                <td>{employee.shifts}</td>
+                                <td>{employee.shifts}</td>
+                                <td>{employee.shifts}</td>
+                                <td>{employee.shifts}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </Table>
             </div>
