@@ -16,12 +16,17 @@ class HomeAuth extends Component {
         return (
             <div>
                 <Button
-                    color="inherit"
+                    style={{ marginTop: 20, marginLeft: 50 }}
+                    variant="contained"
+                    color="default"
                     component={Link}
                     to={{
                         pathname: "/AllEmployees",
-                    }}>All Employees</Button>
-                <Calendar />
+                    }}>All Employees
+                </Button>
+                <Calendar
+                    authUser={this.props.authUser}
+                />
             </div>
         )
     }
