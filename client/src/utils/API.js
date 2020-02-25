@@ -13,5 +13,6 @@ export default {
     },
     saveShifts: function(shiftData) {
         console.log(shiftData);
-    }
+        return axios.post("/api/shift", shiftData);
+    },
 }

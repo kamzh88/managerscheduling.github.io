@@ -3,6 +3,7 @@ const db = require("../models");
 module.exports = {
     create: function (req, res) {
         const condition = req.body.uid
+        console.log(req.body);
         db.Employees
             .create(req.body)
             .then(dbEmployee => {
