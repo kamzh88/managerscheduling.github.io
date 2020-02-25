@@ -9,7 +9,7 @@ class Calendar extends Component {
 
     state = {
         employees: [],
-        name: '',
+        id: '',
         date: '',
         shiftStart: '',
         shiftEnd: ''
@@ -35,14 +35,17 @@ class Calendar extends Component {
 
     onSubmit = (e) => {
         e.preventDefault()
-        const { name, date, shiftStart, shiftEnd } = this.state;
-        console.log(shiftStart)
-        console.log(shiftEnd)
+        const { id, date, shiftStart, shiftEnd } = this.state;
+        API.saveShifts({
+            shiftStart: `${date}T${shiftStart}`,
+            shiftEnd: `${date}T${shiftEnd}`,
+            _id: id
+        })
     }
 
     render() {
 
-        const { employees, name, date, shiftStart, shiftEnd } = this.state;
+        const { employees, id, date, shiftStart, shiftEnd } = this.state;
         console.log(employees);
 
         return (
@@ -56,8 +59,8 @@ class Calendar extends Component {
                             style={{ marginBottom: 20 }}
                             select
                             label="Select"
-                            value={name}
-                            onChange={this.handleChange("name")}
+                            value={id}
+                            onChange={this.handleChange("id")}
                             helperText="Select an employee"
                         >
                             {employees.map(option => (

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+    //Under All Employees Component
     saveEmployee: function(employeeData) {
         return axios.post("/api/employee/", employeeData);
     },
@@ -9,5 +10,8 @@ export default {
     },
     saveUser: function(userData) {
         return axios.post("/api/user", userData);
+    },
+    saveShifts: function(shiftData) {
+        console.log(shiftData);
     }
 }
