@@ -9,7 +9,10 @@ class Calendar extends Component {
 
     state = {
         employees: [],
-        name: ''
+        name: '',
+        date: '',
+        shiftStart: '',
+        shiftEnd: ''
     }
 
     componentDidMount() {
@@ -30,9 +33,16 @@ class Calendar extends Component {
             .catch(err => console.log(err));
     }
 
+    onSubmit = (e) => {
+        e.preventDefault()
+        const { name, date, shiftStart, shiftEnd } = this.state;
+        console.log(shiftStart)
+        console.log(shiftEnd)
+    }
+
     render() {
 
-        const { employees, name } = this.state;
+        const { employees, name, date, shiftStart, shiftEnd } = this.state;
         console.log(employees);
 
         return (
@@ -42,7 +52,8 @@ class Calendar extends Component {
                         onSubmit={this.onSubmit}
                     >
                         <TextField
-                            // id="standard-select-currency"
+                            required
+                            style={{ marginBottom: 20 }}
                             select
                             label="Select"
                             value={name}
@@ -55,8 +66,62 @@ class Calendar extends Component {
                                 </MenuItem>
                             ))}
                         </TextField>
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            id="date"
+                            label="Select Date"
+                            type="date"
+                            // defaultValue="2020-02-24"
+                            value={date ? date : "2020-02-24"}
+                            onChange={this.handleChange("date")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            id="shiftStart"
+                            label="Start Time"
+                            type="time"
+                            value={shiftStart ? shiftStart : "11:00"}
+                            onChange={this.handleChange("shiftStart")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            inputProps={{
+                                step: 1800, // 5 min
+                            }}
+                        />
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            id="shiftEnd"
+                            label="End Time"
+                            type="time"
+                            value={shiftEnd ? shiftEnd : "23:00"}
+                            onChange={this.handleChange("shiftEnd")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            inputProps={{
+                                step: 1800, // 5 min
+                            }}
+                        />
+                        <Button
+                            style={{ marginBottom: 20 }}
+                            type={"submit"}
+                            fullWidth
+                            variant={"contained"}
+                            color={"primary"}
+                        // disabled={isInvalid}
+                        >
+                            Submit
+                    </Button>
                     </form>
                 </Wrapper>
+
                 <Table striped bordered style={{ width: "90%", margin: 50 }}>
                     <thead>
                         <tr>
