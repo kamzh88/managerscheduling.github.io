@@ -1,22 +1,24 @@
 import React, { Component, Fragment } from "react";
-import { Button } from '@material-ui/core';
+import { Typography, TextField, Button, MenuItem } from '@material-ui/core';
 import API from '../../utils/API';
 import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Wrapper from "../Wrapper";
 
 class Calendar extends Component {
 
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        position: '',
-        employees: []
+        employees: [],
+        name: ''
     }
 
     componentDidMount() {
         this.loadEmployees();
 
+    }
+
+    handleChange = key => e => {
+        this.setState({ [key]: e.target.value });
     }
 
     loadEmployees = () => {
@@ -30,12 +32,32 @@ class Calendar extends Component {
 
     render() {
 
-        const { employees } = this.state;
+        const { employees, name } = this.state;
         console.log(employees);
 
         return (
             <div>
-                <Table striped bordered hover style={{ width: "90%", margin: 50 }}>
+                <Wrapper>
+                    <form style={{ display: "flex", flexDirection: "column" }}
+                        onSubmit={this.onSubmit}
+                    >
+                        <TextField
+                            // id="standard-select-currency"
+                            select
+                            label="Select"
+                            value={name}
+                            onChange={this.handleChange("name")}
+                            helperText="Select an employee"
+                        >
+                            {employees.map(option => (
+                                <MenuItem key={option._id} value={option._id}>
+                                    {option.firstName} {option.lastName}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </form>
+                </Wrapper>
+                <Table striped bordered style={{ width: "90%", margin: 50 }}>
                     <thead>
                         <tr>
                             <th>#</th>
@@ -52,7 +74,7 @@ class Calendar extends Component {
                     <tbody>
                         {employees.map((employee, index) => (
                             <tr key={index}>
-                                <td>{index}</td>
+                                <td>{index + 1}</td>
                                 <td>{`${employee.firstName} ${employee.lastName}`}</td>
                                 <td>{employee.shifts}</td>
                                 <td>{employee.shifts}</td>
