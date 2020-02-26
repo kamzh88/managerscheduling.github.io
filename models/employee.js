@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const EmployeeSchema = new Schema({
+    uid: {
+        type: String, 
+    },
     firstName: {
         type: String,
         required: "First Name is Required"
