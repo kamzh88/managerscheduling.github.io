@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/kamzh88/managerscheduling.github.io#readme",
   "dependencies": {
-    "@syncfusion/ej2-react-calendars": "^17.4.51",
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "firebase": "^7.9.0",
