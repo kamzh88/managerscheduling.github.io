@@ -1,14 +1,21 @@
 import axios from "axios";
 
 export default {
+    //Under All Employees Component
     saveEmployee: function(employeeData) {
         return axios.post("/api/employee/", employeeData);
     },
+    //Under AllEmployees Component
     getEmployees: function(id) {
-        console.log(id);
         return axios.get("/api/employee/" + id);
     },
     saveUser: function(userData) {
         return axios.post("/api/user", userData);
+    },
+    saveShifts: function(shiftData) {
+        return axios.post("/api/shift", shiftData);
+    },
+    getShifts: function() {
+        return axios.get("/api/shift");
     }
 }
