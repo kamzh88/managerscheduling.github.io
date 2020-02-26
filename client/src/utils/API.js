@@ -5,6 +5,7 @@ export default {
     saveEmployee: function(employeeData) {
         return axios.post("/api/employee/", employeeData);
     },
+    //Under AllEmployees Component
     getEmployees: function(id) {
         return axios.get("/api/employee/" + id);
     },
@@ -12,7 +13,9 @@ export default {
         return axios.post("/api/user", userData);
     },
     saveShifts: function(shiftData) {
-        console.log(shiftData);
         return axios.post("/api/shift", shiftData);
     },
+    getShifts: function() {
+        return axios.get("/api/shift");
+    }
 }

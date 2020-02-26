@@ -8,8 +8,16 @@ module.exports = {
             .create(req.body)
             .then(dbShift => {
                 res.json(dbShift)
-                
+
                 return db.Employees.findOneAndUpdate({ _id: condition }, { $push: { shifts: dbShift._id } }, { new: true });
             }).catch(err => console.log(err))
+    },
+    getShifts: function (req, res) {
+        
+        db.Employees
+            .find({})
+            .populate("shifts")
+            .then((dbShift) => res.json(dbShift))
+            .catch(err => console.log(err));
     }
 }

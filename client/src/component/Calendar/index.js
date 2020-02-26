@@ -12,7 +12,8 @@ class Calendar extends Component {
         id: '',
         date: '',
         shiftStart: '',
-        shiftEnd: ''
+        shiftEnd: '',
+        shifts: []
     }
 
     componentDidMount() {
@@ -25,12 +26,19 @@ class Calendar extends Component {
     }
 
     loadEmployees = () => {
-
         API.getEmployees(this.props.authUser.uid)
-            .then(res =>
+            .then(res => {
                 this.setState({ employees: res.data.employees })
-            )
+                this.loadShifts()
+            })
             .catch(err => console.log(err));
+    }
+
+    loadShifts = () => {
+        API.getShifts()
+            .then(res =>
+                this.setState({ shifts: res.data})
+            ).catch(err => console.log(err));
     }
 
     onSubmit = (e) => {
@@ -38,10 +46,6 @@ class Calendar extends Component {
         const { id, date, shiftStart, shiftEnd } = this.state;
         let startDate = `${date}T${shiftStart}:00.000Z`;
         let endDate = `${date}T${shiftEnd}:00.000Z`;
-        // startDate = new Date(startDate)
-        // let endDate = `${date}T${shiftEnd}`
-        // console.log(startDate);
-        // const End = new Date(`${date}T${shiftEnd}`)
         API.saveShifts({
             shiftStart: startDate,
             shiftEnd: endDate,
@@ -52,8 +56,8 @@ class Calendar extends Component {
 
     render() {
 
-        const { employees, id, date, shiftStart, shiftEnd } = this.state;
-        console.log(employees);
+        const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
+        console.log(shifts);
 
         return (
             <div>
@@ -82,7 +86,6 @@ class Calendar extends Component {
                             id="date"
                             label="Select Date"
                             type="date"
-                            // defaultValue="2020-02-24"
                             value={date ? date : "2020-02-24"}
                             onChange={this.handleChange("date")}
                             InputLabelProps={{
@@ -151,13 +154,13 @@ class Calendar extends Component {
                             <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                                <td>{employee.shifts}</td>
-                                <td>{employee.shifts}</td>
-                                <td>{employee.shifts}</td>
-                                <td>{employee.shifts}</td>
-                                <td>{employee.shifts}</td>
-                                <td>{employee.shifts}</td>
-                                <td>{employee.shifts}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         ))}
                     </tbody>
