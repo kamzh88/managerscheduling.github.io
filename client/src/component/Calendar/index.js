@@ -37,7 +37,7 @@ class Calendar extends Component {
     loadShifts = () => {
         API.getShifts()
             .then(res =>
-                this.setState({ shifts: res.data})
+                this.setState({ shifts: res.data })
             ).catch(err => console.log(err));
     }
 
@@ -154,7 +154,7 @@ class Calendar extends Component {
                             <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                                <td></td>
+                                <td>{"a"}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

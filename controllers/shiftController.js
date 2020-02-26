@@ -14,8 +14,9 @@ module.exports = {
     },
     getShifts: function (req, res) {
         
-        db.Employees
+        db.Users
             .find({})
+            .populate("employees")
             .populate("shifts")
             .then((dbShift) => res.json(dbShift))
             .catch(err => console.log(err));
