@@ -13,12 +13,13 @@ module.exports = {
             }).catch(err => console.log(err))
     },
     getShifts: function (req, res) {
-        
-        db.Users
-            .find({})
-            .populate("employees")
-            .populate("shifts")
-            .then((dbShift) => res.json(dbShift))
+        db.Employees
+            .find({ uid: "NQfSmKzodGhpdu7dpPl1Z5Kg18b2" })
+            .populate({ path: "shifts" })
+            // .populate({ path: "shifts" })
+            .then((dbShift => {
+                res.json(dbShift)
+            }))
             .catch(err => console.log(err));
     }
 }
