@@ -46,9 +46,10 @@ class AddShifts extends Component {
         let startDate = `${date}T${shiftStart}:00.000Z`;
         let endDate = `${date}T${shiftEnd}:00.000Z`;
         API.saveShifts({
-            shiftStart: startDate,
-            shiftEnd: endDate,
-            id: id
+            StartTime: startDate,
+            EndTime: endDate,
+            id: id,
+            uid: this.props.authUser.uid
         }).then(res => console.log("success"))
             .catch(err => console.log(err));
     }

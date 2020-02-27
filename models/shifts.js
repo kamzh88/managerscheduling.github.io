@@ -3,12 +3,18 @@ const Schema = mongoose.Schema;
 
 //I look up what Date will give us and shiftStart.getDay(), it give us the Day.
 const ShiftSchema = new Schema({
-    shiftStart: {
+    StartTime: {
         type: Date
     },
-    shiftEnd: {
+    EndTime: {
         type: Date
-    }
+    },
+    id: {
+        type: String
+    },
+    uid: {
+        type: String, 
+    },
 });
 
 const Shifts = mongoose.model("Shift", ShiftSchema);

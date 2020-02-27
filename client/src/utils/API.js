@@ -15,7 +15,10 @@ export default {
     saveShifts: function(shiftData) {
         return axios.post("/api/shift", shiftData);
     },
-    getShifts: function() {
-        return axios.get("/api/shift");
+    getEmployee: function(id) {
+        return axios.get("/api/shift/" + id);
+    },
+    getShifts: function(id) {
+        return axios.get("/api/shift/all/" + id);
     }
 }
