@@ -56,8 +56,7 @@ class AddShifts extends Component {
     render() {
 
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
-        // console.log(shifts);
-
+        
         return (
             <div>
                 <Wrapper>

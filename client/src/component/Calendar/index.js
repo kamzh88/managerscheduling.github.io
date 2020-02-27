@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import API from '../../utils/API';
 import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, TimelineViews, Resize, DragAndDrop, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
 
@@ -17,15 +18,18 @@ class Calendar extends Component {
             { text: 'Swarm', id: 9, color: '#df5286', capacity: 30, type: 'Conference' },
             { text: 'Photogenic', id: 10, color: '#710193', capacity: 25, type: 'Conference' }
         ],
-        data: [{
-            Id: 2,
-            Subject: 'Meeting',
-            StartTime: new Date(2020, 2, 26, 10, 0),
-            EndTime: new Date(2020, 2, 26, 12, 30),
-            IsAllDay: false,
-            Status: 'Completed',
-            Priority: 'High'
-        }]
+        shifts: []
+    }
+
+    componentDidMount() {
+        this.loadShifts();
+    }
+
+    loadShifts = () => {
+        API.getShifts()
+            .then(res =>
+                this.setState({ shifts: res.data})
+            ).catch(err => console.log(err));
     }
 
     onRenderCell(args) {
@@ -36,6 +40,8 @@ class Calendar extends Component {
     }
 
     render() {
+
+        console.log(this.state.shifts);
         return (
             <div className='schedule-control-section'>
                 <div className='col-lg-12 control-section'>
