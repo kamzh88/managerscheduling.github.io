@@ -3,6 +3,13 @@ const shiftController = require("../../controllers/shiftController");
 
 router.route("/")
     .post(shiftController.create)
-    .get(shiftController.getShifts);
+
+router
+    .route("/:id")
+    .get(shiftController.getallEmployees);
+
+router.
+    route("/all/:id")
+    .get(shiftController.findAll);
 
 module.exports = router;
