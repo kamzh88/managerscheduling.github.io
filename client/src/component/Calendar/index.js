@@ -41,12 +41,12 @@ class Calendar extends Component {
                             // ref={schedule => this.scheduleObj = schedule}
                             height='650px'
                             width='100%'
-                            startHour={'11:00'}
-                            endHour={'24:00'}
-                            workHours={{ start: '11:00', end: '23:59' }}
+                            // startHour={'11:00'}
+                            // endHour={'24:00'}
+                            // workHours={{ start: '11:00', end: '23:59' }}
                             workDays={[0, 1, 2, 3, 4, 5, 6]}
                             currentView={"TimelineWeek"}
-                            timeScale={{ interval: 120, slotCount: 1 }}
+                            timeScale={{ interval: 60, slotCount: 1 }}
                             eventSettings={{
                                 dataSource: this.state.shifts
                             }}
