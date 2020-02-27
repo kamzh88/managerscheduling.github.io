@@ -50,7 +50,7 @@ class AddShifts extends Component {
             EndTime: endDate,
             id: id,
             uid: this.props.authUser.uid
-        }).then(res => console.log("success"))
+        }).then(res => this.setState({ id: '', date: '', shiftStart: '', shiftEnd: '' }))
             .catch(err => console.log(err));
     }
 
