@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { TextField, Button, MenuItem } from '@material-ui/core';
 import API from '../../utils/API';
-import { Table } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Wrapper from "../Wrapper";
 import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
 
-class AddShifts extends Component {
+class Calendar extends Component {
 
     state = {
         employees: [],
@@ -177,4 +175,4 @@ class AddShifts extends Component {
     }
 };
 
-export default AddShifts;
+export default Calendar;
