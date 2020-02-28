@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import API from '../../utils/API';
-import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, TimelineViews, Resize, DragAndDrop, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
 
 class Calendar extends Component {

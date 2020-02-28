@@ -3,7 +3,6 @@ const db = require("../models");
 module.exports = {
     create: function (req, res) {
         const condition = req.body.id;
-        console.log(req.body);
         db.Shifts
             .create(req.body)
             .then(dbShift => {
@@ -16,7 +15,6 @@ module.exports = {
         db.Employees
             .find({ uid: req.params.id })
             .populate({ path: "shifts" })
-            // .populate({ path: "shifts" })
             .then((dbEmployees => {
                 res.json(dbEmployees)
             }))

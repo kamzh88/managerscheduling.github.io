@@ -1,11 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Typography, TextField, Button, MenuItem } from '@material-ui/core';
+import { TextField, Button, MenuItem } from '@material-ui/core';
 import API from '../../utils/API';
-import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Wrapper from "../Wrapper";
-import moment from 'moment';
-
 
 class AddShifts extends Component {
 
@@ -59,7 +56,7 @@ class AddShifts extends Component {
     render() {
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
         return (
-            <div>
+            <Fragment>
                 <Wrapper>
                     <form style={{ display: "flex", flexDirection: "column" }}
                         onSubmit={this.onSubmit}
@@ -133,38 +130,7 @@ class AddShifts extends Component {
                     </Button>
                     </form>
                 </Wrapper>
-
-                {/* <Table striped bordered style={{ width: "90%", margin: 50 }}>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Sunday</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {employees.map((employee, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table> */}
-            </div>
+            </Fragment>
         )
     }
 };

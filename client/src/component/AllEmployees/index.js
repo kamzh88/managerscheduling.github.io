@@ -44,7 +44,6 @@ class AllEmployeesAuth extends Component {
         e.preventDefault();
         const { authUser } = this.props;
         const { firstName, lastName, email, position } = this.state;
-        // console.log(authUser);
         API.saveEmployee({
             firstName: firstName,
             lastName: lastName,
@@ -60,9 +59,7 @@ class AllEmployeesAuth extends Component {
     }
 
     render() {
-
         const { firstName, lastName, email, position, employees } = this.state;
-
         return (
 
             <Fragment>
