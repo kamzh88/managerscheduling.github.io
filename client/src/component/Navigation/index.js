@@ -34,6 +34,13 @@ const NavigationAuth = () => {
                         color="inherit"
                         component={Link}
                         to={{
+                            pathname: "/AllEmployees",
+                        }}>View Employees
+                </Button>
+                    <Button
+                        color="inherit"
+                        component={Link}
+                        to={{
                             pathname: "/Home",
                         }}>Home</Button>
                     <Button

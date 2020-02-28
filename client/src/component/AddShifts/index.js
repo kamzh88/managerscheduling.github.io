@@ -4,6 +4,8 @@ import API from '../../utils/API';
 import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Wrapper from "../Wrapper";
+import moment from 'moment';
+
 
 class AddShifts extends Component {
 
@@ -36,28 +38,26 @@ class AddShifts extends Component {
     loadShifts = () => {
         API.getShifts()
             .then(res =>
-                this.setState({ shifts: res.data})
+                this.setState({ shifts: res.data })
             ).catch(err => console.log(err));
     }
 
     onSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault() 
         const { id, date, shiftStart, shiftEnd } = this.state;
-        let startDate = `${date}T${shiftStart}:00.000Z`;
-        let endDate = `${date}T${shiftEnd}:00.000Z`;
+        let startDate = `${date}T${shiftStart}:00.000`;
+        let endDate = `${date}T${shiftEnd}:00.000`;
         API.saveShifts({
             StartTime: startDate,
             EndTime: endDate,
             id: id,
-            uid: this.props.authUser.uid
-        }).then(res => console.log("success"))
+            uid: this.props.authUser.uid,
+        }).then(res => this.setState({ id: '', date: '', shiftStart: '', shiftEnd: '' }))
             .catch(err => console.log(err));
     }
 
     render() {
-
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
-        
         return (
             <div>
                 <Wrapper>

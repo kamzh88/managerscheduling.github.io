@@ -16,15 +16,15 @@ class HomeAuth extends Component {
 
         return (
             <div>
-                <Button
+                {/* <Button
                     style={{ marginTop: 20, marginLeft: 50 }}
                     variant="contained"
                     color="default"
                     component={Link}
                     to={{
                         pathname: "/AllEmployees",
-                    }}>All Employees
-                </Button>
+                    }}>View Employees
+                </Button> */}
                 <AddShifts
                     authUser={this.props.authUser}
                 />

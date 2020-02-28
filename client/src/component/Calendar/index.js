@@ -38,7 +38,6 @@ class Calendar extends Component {
                     <div className='control-wrapper'>
                         <ScheduleComponent
                             cssClass='timeline-resource'
-                            // ref={schedule => this.scheduleObj = schedule}
                             height='650px'
                             width='100%'
                             startHour={'11:00'}
@@ -46,9 +45,10 @@ class Calendar extends Component {
                             workHours={{ start: '11:00', end: '23:59' }}
                             workDays={[0, 1, 2, 3, 4, 5, 6]}
                             currentView={"TimelineWeek"}
-                            timeScale={{ interval: 120, slotCount: 1 }}
+                            timeScale={{ interval: 60, slotCount: 1 }}
                             eventSettings={{
-                                dataSource: this.state.shifts
+                                dataSource: this.state.shifts,
+                                timezone: "serverTimezoneOffset"
                             }}
                             group={{ enableCompactView: false, resources: ['MeetingRoom'] }}
                         >

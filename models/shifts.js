@@ -13,8 +13,8 @@ const ShiftSchema = new Schema({
         type: String
     },
     uid: {
-        type: String, 
-    },
+        type: String,
+    }
 });
 
 const Shifts = mongoose.model("Shift", ShiftSchema);
