@@ -16,7 +16,6 @@ module.exports = {
         db.Employees
             .find({ uid: req.params.id })
             .populate({ path: "shifts" })
-            // .populate({ path: "shifts" })
             .then((dbEmployees => {
                 res.json(dbEmployees)
             }))

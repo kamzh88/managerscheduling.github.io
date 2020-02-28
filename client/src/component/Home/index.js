@@ -28,9 +28,9 @@ class HomeAuth extends Component {
                 <AddShifts
                     authUser={this.props.authUser}
                 />
-                <Calendar 
+                {/* <Calendar 
                     authUser={this.props.authUser}
-                />
+                /> */}
             </div>
         )
     }

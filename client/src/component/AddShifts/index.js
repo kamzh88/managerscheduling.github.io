@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Typography, TextField, Button, MenuItem } from '@material-ui/core';
+import { TextField, Button, MenuItem } from '@material-ui/core';
 import API from '../../utils/API';
 import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Wrapper from "../Wrapper";
-import moment from 'moment';
-
+import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import "./styles/style.css";
 
 class AddShifts extends Component {
 
@@ -20,6 +20,7 @@ class AddShifts extends Component {
 
     componentDidMount() {
         this.loadEmployees();
+        this.loadShifts();
     }
 
     handleChange = key => e => {
@@ -27,23 +28,21 @@ class AddShifts extends Component {
     }
 
     loadEmployees = () => {
-        API.getEmployees(this.props.authUser.uid)
-            .then(res => {
-                this.setState({ employees: res.data.employees })
-                this.loadShifts()
-            })
-            .catch(err => console.log(err));
+        API.getEmployee(this.props.authUser.uid)
+            .then(res =>
+                this.setState({ employees: res.data })
+            ).catch(err => console.log(err));
     }
 
     loadShifts = () => {
-        API.getShifts()
+        API.getShifts(this.props.authUser.uid)
             .then(res =>
                 this.setState({ shifts: res.data })
             ).catch(err => console.log(err));
     }
 
     onSubmit = (e) => {
-        e.preventDefault() 
+        e.preventDefault()
         const { id, date, shiftStart, shiftEnd } = this.state;
         let startDate = `${date}T${shiftStart}:00.000`;
         let endDate = `${date}T${shiftEnd}:00.000`;
@@ -52,14 +51,17 @@ class AddShifts extends Component {
             EndTime: endDate,
             id: id,
             uid: this.props.authUser.uid,
-        }).then(res => this.setState({ id: '', date: '', shiftStart: '', shiftEnd: '' }))
-            .catch(err => console.log(err));
+        }).then(res => {
+            this.setState({ id: '', date: '', shiftStart: '', shiftEnd: '' });
+            this.loadShifts();
+        }).catch(err => console.log(err));
     }
 
     render() {
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
+        console.log(this.state.shifts);
         return (
-            <div>
+            <Fragment>
                 <Wrapper>
                     <form style={{ display: "flex", flexDirection: "column" }}
                         onSubmit={this.onSubmit}
@@ -133,38 +135,44 @@ class AddShifts extends Component {
                     </Button>
                     </form>
                 </Wrapper>
-
-                {/* <Table striped bordered style={{ width: "90%", margin: 50 }}>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Sunday</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {employees.map((employee, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table> */}
-            </div>
+                <div className='schedule-control-section'>
+                    <div className='col-lg-12 control-section'>
+                        <div className='control-wrapper'>
+                            <ScheduleComponent
+                                cssClass='timeline-resource'
+                                height='650px'
+                                width='100%'
+                                startHour={'11:00'}
+                                endHour={'24:00'}
+                                workHours={{ start: '11:00', end: '23:59' }}
+                                workDays={[0, 1, 2, 3, 4, 5, 6]}
+                                currentView={"TimelineWeek"}
+                                timeScale={{ interval: 60, slotCount: 1 }}
+                                eventSettings={{
+                                    dataSource: this.state.shifts,
+                                }}
+                                group={{ enableCompactView: false, resources: ['MeetingRoom'] }}
+                            >
+                                <ResourcesDirective>
+                                    <ResourceDirective
+                                        field='id'
+                                        name='MeetingRoom'
+                                        dataSource={this.state.employees}
+                                        textField='firstName'
+                                        idField='_id'
+                                    >
+                                    </ResourceDirective>
+                                </ResourcesDirective>
+                                <ViewsDirective>
+                                    <ViewDirective option='TimelineDay' />
+                                    <ViewDirective option='TimelineWeek' />
+                                </ViewsDirective>
+                                <Inject services={[TimelineViews, Resize]} />
+                            </ScheduleComponent>
+                        </div>
+                    </div>
+                </div>
+            </Fragment>
         )
     }
 };
