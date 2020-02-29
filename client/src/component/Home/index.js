@@ -15,33 +15,6 @@ class HomeAuth extends Component {
 
         return (
             <div>
-                <Button
-                    style={{ marginTop: 20, marginLeft: 50 }}
-                    variant="contained"
-                    color="default"
-                    component={Link}
-                    to={{
-                        pathname: "/Delete",
-                    }}>Delete Shifts
-                </Button>
-                <Button
-                    style={{ marginTop: 20, marginLeft: 50 }}
-                    variant="contained"
-                    color="default"
-                    component={Link}
-                    to={{
-                        pathname: "/Edit",
-                    }}> Edit Shifts 
-                </Button>
-                <Button
-                    style={{ marginTop: 20, marginLeft: 50 }}
-                    variant="contained"
-                    color="default"
-                    component={Link}
-                    to={{
-                        pathname: "/Send",
-                    }}> Send Shifts 
-                </Button>
                 <Calendar
                     authUser={this.props.authUser}
                 />

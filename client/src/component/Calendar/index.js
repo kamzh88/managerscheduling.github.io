@@ -26,6 +26,7 @@ class Calendar extends Component {
     }
 
     loadEmployees = () => {
+        console.log(this.props.authUser.uid)
         API.getEmployee(this.props.authUser.uid)
             .then(res =>
                 this.setState({ employees: res.data })
@@ -57,7 +58,7 @@ class Calendar extends Component {
 
     render() {
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
-        console.log(this.state.shifts);
+        console.log(employees);
         return (
             <Fragment>
                 <Wrapper>
@@ -147,7 +148,7 @@ class Calendar extends Component {
                                 currentView={"TimelineWeek"}
                                 timeScale={{ interval: 60, slotCount: 1 }}
                                 eventSettings={{
-                                    dataSource: this.state.shifts,
+                                    dataSource: shifts,
                                 }}
                                 group={{ enableCompactView: false, resources: ['MeetingRoom'] }}
                             >
@@ -155,7 +156,7 @@ class Calendar extends Component {
                                     <ResourceDirective
                                         field='id'
                                         name='MeetingRoom'
-                                        dataSource={this.state.employees}
+                                        dataSource={employees}
                                         textField='firstName'
                                         idField='_id'
                                     >

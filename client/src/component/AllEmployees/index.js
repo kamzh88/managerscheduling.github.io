@@ -3,6 +3,7 @@ import { Typography, TextField, Button, Card } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
+import TimeSheet from "../TimeSheet";
 
 const styles = {
     Card: {
@@ -25,18 +26,60 @@ class AllEmployeesAuth extends Component {
         lastName: '',
         email: '',
         position: '',
-        employees: []
+        employees: [],
+        shifts: [],
+        // employeeID: '',
+        // shiftEmployeeID: [],
+        // employeeid: '',
+        // data: []
     }
 
     componentDidMount() {
         this.loadEmployees();
+        this.loadShifts();
+    }
+
+    loadShifts = () => {
+        API.getShifts(this.props.authUser.uid)
+            .then(res =>
+                this.setState({ shifts: res.data })
+            ).catch(err => console.log(err));
     }
 
     loadEmployees = () => {
-        API.getEmployees(this.props.authUser.uid)
-            .then(res =>
-                this.setState({ employees: res.data.employees })
-            )
+
+        API.getEmployee(this.props.authUser.uid)
+            .then(res => {
+                // console.log(res.data)
+                // const shifts = Object.values(res.data.shifts).map((shift) => {
+                //     return shift.startTime;
+                // })
+                // for (var i = 0; i < res.data.length; i++) {
+                //     let len = res.data[i].shifts.length
+                //     for (var j = 0; j < len; j++) {
+                //         let shift = res.data[i].shifts[j];
+
+                //         this.state.shifts.push(shift);
+
+                //     };
+                // };
+                // const employeeID = res.data.map(employeeID => (employeeID._id))
+                // console.log(employeeID)
+                // const shiftEmployeeID = this.state.shifts.map(shiftID => (shiftID.id))
+                // console.log(shiftEmployeeID);
+                // const data = res.data;
+                // const shifts = data.map(shift => {
+                //     shift
+                // })
+                // const shift = Object.entries(data);
+
+                this.setState({
+                    employees: res.data,
+                    shifts: this.state.shifts,
+                    // employeeID: employeeID,
+                    // shiftEmployeeID: shiftEmployeeID
+                });
+            })
             .catch(err => console.log(err));
     }
 
@@ -57,12 +100,23 @@ class AllEmployeesAuth extends Component {
 
     handleChange = key => e => {
         this.setState({ [key]: e.target.value });
+
     }
+
+    // imageChange = event => {
+    //     let employeeid = event.employeeid;
+    //     this.state.shifts.filter((shift) => (shift.id === employeeid));
+
+    //     console.log(data)
+    //     // this.setState({ data: data})
+    // }
+
+
 
     render() {
 
-        const { firstName, lastName, email, position, employees } = this.state;
-
+        const { firstName, lastName, email, position, employees, shifts, employeeID, shiftEmployeeID } = this.state;
+        // console.log(this.state.data)
         return (
 
             <Fragment>
@@ -123,20 +177,69 @@ class AllEmployeesAuth extends Component {
                 </Wrapper>
                 <div style={styles.Card}>
                     <h1>Employee List</h1>
-                    <Card variant="outlined">
-                        {employees.map((employee, index) => (
-                            <Card key={index} variant="outlined" style={{ width: "auto", margin: 20 }}>
-                                <div style={{ overflow: "auto", padding: 10 }}>
-                                    <p>Name: {employee.firstName} {employee.lastName}</p>
-                                    <p>Position: {employee.position}</p>
-                                    <p>Email: {employee.email}</p>
+                    {employees.map((employee, index) => (
+
+                        <Card
+                            key={index}
+                            variant="outlined"
+                            style={{ width: "auto", margin: 20 }}
+                        // value={employee._id}
+                        // name={this.employeeid}
+                        >
+                            <div
+                                style={{ overflow: "auto", padding: 10 }}
+                            >
+                                <p>Name: {employee.firstName} {employee.lastName}</p>
+                                <p>Position: {employee.position}</p>
+                                <p>Email: {employee.email}</p>
+                                <div>
                                     <p>Shifts:</p>
+                                    {/* {this.state.shifts.map((shift, index) => ( */}
+                                    <TimeSheet
+
+                                        data={this.state.shifts.filter((shift) => (shift.id === employee._id))}
+                                    // key={index}
+                                    // employeeid={employee._id} 
+                                    // shiftid={shift.id}
+                                    // onChange={this.imageChange({
+                                    //     employeeid: employee._id
+                                    //     // shiftid: shift.id
+                                    // })}
+                                    // employeeid={employee._id}
+                                    // value={shift.id}
+                                    // starttime={shift.StartTime}
+                                    // endtime={shift.EndTime}
+                                    // handleimage={this.handleImage({
+                                    //     employeeid: this.props.employeeid
+                                    // })}
+                                    >
+                                        {/* ))} */}
+                                        {shifts.length ? (
+                                            <div
+                                            // employeeid = {employee_id}
+                                            >
+                                                {/* {shifts.filter((shift) => (shift.id === employee._id)(
+                                                console.log(shift)
+                                            ))} */}
+                                                {/* {shifts.filter((shift) => (shiftEmployeeID === employeeID)(
+                                                    console.log(shift.StartTime)
+                                            ))} */}
+                                                {/* <p>Shift Start: {shift.StartTime} </p>
+                                                <p>Shift End: {shift.EndTime}</p><br></br> */}
+                                            </div>
+
+
+                                        ) : (
+                                                <div></div>
+                                            )
+                                        }
+                                    </TimeSheet>
                                 </div>
-                            </Card>
-                        ))}
-                    </Card>
+                            </div>
+                        </Card>
+                    ))}
                 </div>
-            </Fragment>
+            </Fragment >
 
         )
     }
@@ -155,3 +258,15 @@ const AllEmployeesNonAuth = () => {
 };
 
 export default AllEmployees;
+
+// {employees.map((employee, index) => (
+
+//     <Card key={index} variant="outlined" style={{ width: "auto", margin: 20 }}>
+//         <div style={{ overflow: "auto", padding: 10 }}>
+//             <p>Name: {employee.firstName} {employee.lastName}</p>
+//             <p>Position: {employee.position}</p>
+//             <p>Email: {employee.email}</p>
+//             {/* <p>Shifts:{employee.shifts} </p> */}
+//         </div>
+//     </Card>
+// ))}
