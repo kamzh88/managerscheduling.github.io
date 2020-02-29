@@ -6,9 +6,11 @@ class TimeSheet extends Component {
     render() {
 
         return (
-            <Fragment>
+            <div>
                 <div>{this.props.data.map((shifts, index) => (
-                    <div key={index}>
+                    <button
+                        key={index}
+                    >
                         <p>
                             Date: {
                                 <Moment format="MM/DD/YYYY">
@@ -21,7 +23,7 @@ class TimeSheet extends Component {
                                 <Moment format="h:mm:ss a">
                                     {shifts.StartTime}
                                 </Moment>
-                                
+
                             }
                         </p>
                         <p>
@@ -32,12 +34,13 @@ class TimeSheet extends Component {
                             }
                         </p>
                         <br></br>
-                    </div>
+                    </button>
                 ))}
                 </div>
-            </Fragment>
+            </div>
         )
     }
 }
 
 export default TimeSheet;
+
