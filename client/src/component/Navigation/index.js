@@ -34,9 +34,16 @@ const NavigationAuth = () => {
                         color="inherit"
                         component={Link}
                         to={{
+                            pathname: "/EditShifts",
+                        }}> Edit Shifts
+                    </Button>
+                    <Button
+                        color="inherit"
+                        component={Link}
+                        to={{
                             pathname: "/AllEmployees",
                         }}>View Employees
-                </Button>
+                    </Button>
                     <Button
                         color="inherit"
                         component={Link}
@@ -63,7 +70,7 @@ const NavigationNonAuth = () => {
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         Manager Scheduling Application
-                    </Typography>
+</Typography>
                     <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/SignUp">SignUp</Button>
                     <Button color="inherit" component={Link} to="/SignIn">Login</Button>

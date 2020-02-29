@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import AddShifts from '../AddShifts';
-import Calendar from "../Calendar";
+import Calendar from '../Calendar';
 
 const Home = ({ authUser }) => {
     return (
@@ -16,19 +15,7 @@ class HomeAuth extends Component {
 
         return (
             <div>
-                {/* <Button
-                    style={{ marginTop: 20, marginLeft: 50 }}
-                    variant="contained"
-                    color="default"
-                    component={Link}
-                    to={{
-                        pathname: "/AllEmployees",
-                    }}>View Employees
-                </Button> */}
-                <AddShifts
-                    authUser={this.props.authUser}
-                />
-                <Calendar 
+                <Calendar
                     authUser={this.props.authUser}
                 />
             </div>

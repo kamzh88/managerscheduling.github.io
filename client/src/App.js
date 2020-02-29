@@ -8,6 +8,7 @@ import SignIn from './component/SignIn';
 import Home from './component/Home';
 import AllEmployees from './component/AllEmployees';
 import { fireAuth } from "./component/Firebase/index";
+import EditShifts from './component/EditShifts';
 
 class App extends Component {
   state = {
@@ -38,6 +39,10 @@ class App extends Component {
           <Route
             exact path="/AllEmployees"
             render={props => (<AllEmployees authUser={this.state.authUser} {...props} />)}
+          />
+          <Route
+            exact path="/EditShifts"
+            render={props => (<EditShifts authUser={this.state.authUser} {...props} />)}
           />
         </Switch>
 

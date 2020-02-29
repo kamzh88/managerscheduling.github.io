@@ -1,12 +1,18 @@
 import React, { Component, Fragment } from "react";
+import { TextField, Button, MenuItem } from '@material-ui/core';
 import API from '../../utils/API';
-import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, TimelineViews, Resize, DragAndDrop, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import Wrapper from "../Wrapper";
+import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
 
 class Calendar extends Component {
 
     state = {
         employees: [],
+        id: '',
+        date: '',
+        shiftStart: '',
+        shiftEnd: '',
         shifts: []
     }
 
@@ -15,7 +21,12 @@ class Calendar extends Component {
         this.loadShifts();
     }
 
+    handleChange = key => e => {
+        this.setState({ [key]: e.target.value });
+    }
+
     loadEmployees = () => {
+        console.log(this.props.authUser.uid)
         API.getEmployee(this.props.authUser.uid)
             .then(res =>
                 this.setState({ employees: res.data })
@@ -29,50 +40,140 @@ class Calendar extends Component {
             ).catch(err => console.log(err));
     }
 
-    render() {
-        console.log(this.state.shifts)
+    onSubmit = (e) => {
+        e.preventDefault()
+        const { id, date, shiftStart, shiftEnd } = this.state;
+        let startDate = `${date}T${shiftStart}:00.000`;
+        let endDate = `${date}T${shiftEnd}:00.000`;
+        API.saveShifts({
+            StartTime: startDate,
+            EndTime: endDate,
+            id: id,
+            uid: this.props.authUser.uid,
+        }).then(res => {
+            this.setState({ id: '', date: '', shiftStart: '', shiftEnd: '' });
+            this.loadShifts();
+        }).catch(err => console.log(err));
+    }
 
+    render() {
+        const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
+        console.log(employees);
         return (
-            <div className='schedule-control-section'>
-                <div className='col-lg-12 control-section'>
-                    <div className='control-wrapper'>
-                        <ScheduleComponent
-                            cssClass='timeline-resource'
-                            height='650px'
-                            width='100%'
-                            startHour={'11:00'}
-                            endHour={'24:00'}
-                            workHours={{ start: '11:00', end: '23:59' }}
-                            workDays={[0, 1, 2, 3, 4, 5, 6]}
-                            currentView={"TimelineWeek"}
-                            timeScale={{ interval: 60, slotCount: 1 }}
-                            eventSettings={{
-                                dataSource: this.state.shifts,
-                                timezone: "serverTimezoneOffset"
-                            }}
-                            group={{ enableCompactView: false, resources: ['MeetingRoom'] }}
+            <Fragment>
+                <Wrapper>
+                    <form style={{ display: "flex", flexDirection: "column" }}
+                        onSubmit={this.onSubmit}
+                    >
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            select
+                            label="Select"
+                            value={id}
+                            onChange={this.handleChange("id")}
+                            helperText="Select an employee"
                         >
-                            <ResourcesDirective>
-                                <ResourceDirective
-                                    field='id'
-                                    name='MeetingRoom'
-                                    dataSource={this.state.employees}
-                                    textField='firstName'
-                                    idField='_id'
-                                >
-                                </ResourceDirective>
-                            </ResourcesDirective>
-                            <ViewsDirective>
-                                <ViewDirective option='TimelineDay' />
-                                <ViewDirective option='TimelineWeek' />
-                            </ViewsDirective>
-                            <Inject services={[TimelineViews, Resize]} />
-                        </ScheduleComponent>
+                            {employees.map(option => (
+                                <MenuItem key={option._id} value={option._id}>
+                                    {option.firstName} {option.lastName}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            id="date"
+                            label="Select Date"
+                            type="date"
+                            value={date ? date : "2020-02-24"}
+                            onChange={this.handleChange("date")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            id="shiftStart"
+                            label="Start Time"
+                            type="time"
+                            value={shiftStart ? shiftStart : "11:00"}
+                            onChange={this.handleChange("shiftStart")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            inputProps={{
+                                step: 1800, // 5 min
+                            }}
+                        />
+                        <TextField
+                            required
+                            style={{ marginBottom: 20 }}
+                            id="shiftEnd"
+                            label="End Time"
+                            type="time"
+                            value={shiftEnd ? shiftEnd : "23:00"}
+                            onChange={this.handleChange("shiftEnd")}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            inputProps={{
+                                step: 1800, // 5 min
+                            }}
+                        />
+                        <Button
+                            style={{ marginBottom: 20 }}
+                            type={"submit"}
+                            fullWidth
+                            variant={"contained"}
+                            color={"primary"}
+                        // disabled={isInvalid}
+                        >
+                            Submit
+                    </Button>
+                    </form>
+                </Wrapper>
+                <div className='schedule-control-section'>
+                    <div className='col-lg-12 control-section'>
+                        <div className='control-wrapper'>
+                            <ScheduleComponent
+                                cssClass='timeline-resource'
+                                height='650px'
+                                width='100%'
+                                startHour={'11:00'}
+                                endHour={'24:00'}
+                                workHours={{ start: '11:00', end: '23:59' }}
+                                workDays={[0, 1, 2, 3, 4, 5, 6]}
+                                currentView={"TimelineWeek"}
+                                timeScale={{ interval: 60, slotCount: 1 }}
+                                eventSettings={{
+                                    dataSource: shifts,
+                                }}
+                                group={{ enableCompactView: false, resources: ['MeetingRoom'] }}
+                            >
+                                <ResourcesDirective>
+                                    <ResourceDirective
+                                        field='id'
+                                        name='MeetingRoom'
+                                        dataSource={employees}
+                                        textField='firstName'
+                                        idField='_id'
+                                    >
+                                    </ResourceDirective>
+                                </ResourcesDirective>
+                                <ViewsDirective>
+                                    <ViewDirective option='TimelineDay' />
+                                    <ViewDirective option='TimelineWeek' />
+                                </ViewsDirective>
+                                <Inject services={[TimelineViews, Resize]} />
+                            </ScheduleComponent>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         )
     }
-}
+};
 
 export default Calendar;
