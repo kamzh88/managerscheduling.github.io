@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
 import TimeSheet from "../TimeSheet";
-// import Moment from 'react-moment';
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
@@ -69,6 +68,7 @@ class AllEmployeesAuth extends Component {
 
 
     showModal = (event) => {
+        // console.log(event);
         this.setState({ isOpen: true, setIsOpen: true, results: event, shiftID: event._id })
     }
 
@@ -79,26 +79,10 @@ class AllEmployeesAuth extends Component {
     deleteShift = (e) => {
         e.preventDefault();
         const { shiftID } = this.state;
-        // console.log(shiftID);
         API.deleteShift(shiftID).then(res => {
             this.setState({ isOpen: false, setIsOpen: false });
             this.loadShifts();
         });
-    }
-
-    handleFormSubmit = e => {
-        e.preventDefault();
-        const { shiftEnd, shiftStart, date, shiftID } = this.state;
-        const startDate = `${date}T${shiftStart}:00.000`;
-        const endDate = `${date}T${shiftEnd}:00.000`;
-        API.updateShift({
-            _id: shiftID,
-            StartTime: startDate,
-            EndTime: endDate
-        })
-        // .then(res => {
-        //     console.log("success")
-        // })
     }
 
     onSubmit = e => {
@@ -115,6 +99,22 @@ class AllEmployeesAuth extends Component {
             .catch(err => console.log(err));
     }
 
+    handleFormSubmit = e => {
+        e.preventDefault();
+        const { shiftEnd, shiftStart, date, shiftID } = this.state;
+        let startDate = `${date}T${shiftStart}:00.000`;
+        let endDate = `${date}T${shiftEnd}:00.000`;
+        API.updateShift({
+            StartTime: startDate,
+            EndTime: endDate,
+        }, {
+            shiftID
+        }).then(res => {
+            this.setState({ isOpen: false, setIsOpen: false });
+            this.loadShifts();
+        }).catch(err => console.log(err));
+    }
+
     handleChange = key => e => {
         this.setState({ [key]: e.target.value });
     }
@@ -122,7 +122,7 @@ class AllEmployeesAuth extends Component {
     render() {
 
         const { firstName, lastName, email, position, employees } = this.state;
-        const { date, shiftStart, shiftEnd, shiftID } = this.state;
+        const { date, shiftStart, shiftEnd } = this.state;
         return (
 
             <Fragment>

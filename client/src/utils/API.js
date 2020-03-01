@@ -26,7 +26,9 @@ export default {
         console.log(id);
         return axios.delete("/api/shift/" + id);
     },
-    updateShift: function (shiftData) {
-        console.log(shiftData);
+    //Use under AllEmployees component
+    updateShift: function (shiftData, id) {
+       console.log("/api/shift/" + id.shiftID, shiftData)
+        return axios.put("/api/shift/" + id.shiftID, shiftData)
     }
 }
