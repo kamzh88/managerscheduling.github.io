@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 import Calendar from '../Calendar';
 
 const Home = ({ authUser }) => {

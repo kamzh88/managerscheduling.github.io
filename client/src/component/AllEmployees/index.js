@@ -73,7 +73,7 @@ class AllEmployeesAuth extends Component {
 
     render() {
 
-        const { firstName, lastName, email, position, employees, shifts } = this.state;
+        const { firstName, lastName, email, position, employees } = this.state;
 
         return (
 

@@ -6,7 +6,8 @@ router.route("/")
 
 router
     .route("/:id")
-    .get(shiftController.getallEmployees);
+    .get(shiftController.getallEmployees)
+    .delete(shiftController.remove);
 
 router.
     route("/all/:id")

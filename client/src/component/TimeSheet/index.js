@@ -7,6 +7,7 @@ import ModalTitle from "react-bootstrap/ModalTitle";
 import { TextField, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save'
+import API from '../../utils/API';
 
 class TimeSheet extends Component {
 
@@ -16,11 +17,13 @@ class TimeSheet extends Component {
         results: [],
         date: '',
         shiftStart: '',
-        shiftEnd: ''
+        shiftEnd: '',
+        shiftID: ''
     }
 
     showModal = (event) => {
-        this.setState({ isOpen: true, setIsOpen: true, results: event })
+        // console.log(event);
+        this.setState({ isOpen: true, setIsOpen: true, results: event, shiftID: event._id })
     }
 
     hideModal = () => {
@@ -31,10 +34,18 @@ class TimeSheet extends Component {
         this.setState({ [key]: e.target.value });
     };
 
+    deleteShift = (e) => {
+        e.preventDefault();
+        const { shiftEnd, shiftStart, date, shiftID } = this.state;
+        // console.log(shiftID);
+        API.deleteShift(shiftID).then(res => console.log("success"));
+
+    }
+
     render() {
 
-        const { date, shiftStart, shiftEnd } = this.state;
-        // console.log(this.state.results)
+        const { date, shiftStart, shiftEnd, shiftID } = this.state;
+        // console.log(this.state.shiftID);
         return (
             <Fragment>
                 {this.props.data.map((shifts, index) => (
@@ -47,32 +58,12 @@ class TimeSheet extends Component {
                             EndTime: shifts.EndTime
                         })}
                     >
-                        <p>
-                            Date: {
-                                <Moment format="MM/DD/YYYY">
-                                    {shifts.StartTime}
-                                </Moment>
-                            }
-                        </p>
-                        <p>
-                            Start Shift: {
-                                <Moment format="h:mm:ss a">
-                                    {shifts.StartTime}
-                                </Moment>
-
-                            }
-                        </p>
-                        <p>
-                            Shift End: {
-                                <Moment format="h:mm:ss a">
-                                    {shifts.EndTime}
-                                </Moment>
-                            }
-                        </p>
+                        <p> Date: {<Moment format="MM/DD/YYYY">{shifts.StartTime}</Moment>}</p>
+                        <p> Start Shift: {<Moment format="h:mm:ss a">{shifts.StartTime}</Moment>}</p>
+                        <p> Shift End: {<Moment format="h:mm:ss a">{shifts.EndTime}</Moment>}</p>
                         <br></br>
                     </button>
                 ))}
-
                 <Modal
                     show={this.state.isOpen}
                     size="md"
@@ -146,6 +137,7 @@ class TimeSheet extends Component {
                                 variant="contained"
                                 color="secondary"
                                 startIcon={<DeleteIcon />}
+                                onClick={this.deleteShift}
                             >
                                 Delete
                              </Button>
@@ -157,12 +149,10 @@ class TimeSheet extends Component {
                             </Button>
                         </form>
                     </ModalBody>
-
                 </Modal>
             </Fragment>
         )
     }
-
 }
 
 export default TimeSheet;

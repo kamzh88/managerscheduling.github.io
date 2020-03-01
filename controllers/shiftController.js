@@ -3,7 +3,7 @@ const db = require("../models");
 module.exports = {
     create: function (req, res) {
         const condition = req.body.id;
-        console.log(req.body);
+        // console.log(req.body);
         db.Shifts
             .create(req.body)
             .then(dbShift => {
@@ -27,5 +27,12 @@ module.exports = {
             .then((dbShift => {
                 res.json(dbShift)
             }))
+    },
+    remove: function(req, res) {
+        console.log(req)
+        db.Shifts.findById(req.params.id)
+            .then(dbShift => dbShift.remove())
+            .then(dbShift => res.json(dbShift))
+            .catch(err => console.log(err));
     }
-}
+};
