@@ -69,6 +69,7 @@ class AllEmployeesAuth extends Component {
 
 
     showModal = (event) => {
+        // console.log(event);
         this.setState({ isOpen: true, setIsOpen: true, results: event, shiftID: event._id })
     }
 
@@ -78,27 +79,13 @@ class AllEmployeesAuth extends Component {
 
     deleteShift = (e) => {
         e.preventDefault();
-        const { shiftID } = this.state;
+        const { shiftEnd, shiftStart, date, shiftID } = this.state;
         // console.log(shiftID);
         API.deleteShift(shiftID).then(res => {
+            console.log("success")
             this.setState({ isOpen: false, setIsOpen: false });
             this.loadShifts();
         });
-    }
-
-    handleFormSubmit = e => {
-        e.preventDefault();
-        const { shiftEnd, shiftStart, date, shiftID } = this.state;
-        const startDate = `${date}T${shiftStart}:00.000`;
-        const endDate = `${date}T${shiftEnd}:00.000`;
-        API.updateShift({
-            _id: shiftID,
-            StartTime: startDate,
-            EndTime: endDate
-        })
-        // .then(res => {
-        //     console.log("success")
-        // })
     }
 
     onSubmit = e => {
@@ -113,6 +100,20 @@ class AllEmployeesAuth extends Component {
             uid: authUser.uid
         }).then(res => this.loadEmployees())
             .catch(err => console.log(err));
+    }
+
+    handleFormSubmit = e => {
+        e.preventDefault();
+        const { shiftEnd, shiftStart, date, shiftID } = this.state;
+        let startDate = `${date}T${shiftStart}:00.000`;
+        let endDate = `${date}T${shiftEnd}:00.000`;
+        API.updateShift({
+            StartTime: startDate,
+            EndTime: endDate,
+        }, {
+            shiftID
+        }).then(res => console.log("success"))
+        .catch(err => console.log(err));
     }
 
     handleChange = key => e => {

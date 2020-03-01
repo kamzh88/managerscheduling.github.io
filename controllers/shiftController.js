@@ -33,5 +33,11 @@ module.exports = {
             .then(dbShift => dbShift.remove())
             .then(dbShift => res.json(dbShift))
             .catch(err => res.status(422).json(err));
+    },
+    update: function(req, res) {
+        // console.log(req);
+        db.Shifts.findOneAndUpdate({ _id: req.params.id }, req.body)
+        .then(dbShift => res.json(dbShift))
+        .catch(err => console.log(err));
     }
 };
