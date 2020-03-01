@@ -174,15 +174,3 @@ const AllEmployeesNonAuth = () => {
 };
 
 export default AllEmployees;
-
-// {employees.map((employee, index) => (
-
-//     <Card key={index} variant="outlined" style={{ width: "auto", margin: 20 }}>
-//         <div style={{ overflow: "auto", padding: 10 }}>
-//             <p>Name: {employee.firstName} {employee.lastName}</p>
-//             <p>Position: {employee.position}</p>
-//             <p>Email: {employee.email}</p>
-//             {/* <p>Shifts:{employee.shifts} </p> */}
-//         </div>
-//     </Card>
-// ))}

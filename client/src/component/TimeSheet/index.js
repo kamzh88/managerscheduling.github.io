@@ -3,9 +3,10 @@ import Moment from 'react-moment';
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalTitle from "react-bootstrap/ModalTitle";
-import { Typography, TextField, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save'
 
 class TimeSheet extends Component {
 
@@ -31,6 +32,7 @@ class TimeSheet extends Component {
     };
 
     render() {
+
         const { date, shiftStart, shiftEnd } = this.state;
         // console.log(this.state.results)
         return (
@@ -73,7 +75,7 @@ class TimeSheet extends Component {
 
                 <Modal
                     show={this.state.isOpen}
-                    size="lg"
+                    size="md"
                     onHide={this.hideModal}
                     style={{ opacity: 1, paddingTop: "20%" }}
                 >
@@ -133,13 +135,29 @@ class TimeSheet extends Component {
                                 fullWidth
                                 variant={"contained"}
                                 color={"primary"}
+                                startIcon={<SaveIcon />}
                             // disabled={isInvalid}
                             >
-                                Submit
+                                Save
+                            </Button>
+                            <Button
+                                style={{ marginBottom: 20 }}
+                                fullWidth
+                                variant="contained"
+                                color="secondary"
+                                startIcon={<DeleteIcon />}
+                            >
+                                Delete
+                             </Button>
+                            <Button
+                                variant="contained"
+                                onClick={this.hideModal}
+                            >
+                                Close
                             </Button>
                         </form>
                     </ModalBody>
-                    <ModalFooter>This is the footer</ModalFooter>
+
                 </Modal>
             </Fragment>
         )

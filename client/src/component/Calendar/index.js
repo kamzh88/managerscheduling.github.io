@@ -131,7 +131,7 @@ class Calendar extends Component {
                         // disabled={isInvalid}
                         >
                             Submit
-                    </Button>
+                        </Button>
                     </form>
                 </Wrapper>
                 <div className='schedule-control-section'>

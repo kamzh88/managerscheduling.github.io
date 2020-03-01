@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@material-ui/core": "^4.9.3",
+    "@material-ui/icons": "^4.9.1",
     "@syncfusion/ej2-base": "^17.4.51",
     "@syncfusion/ej2-buttons": "^17.4.51",
     "@syncfusion/ej2-react-calendars": "^17.4.51",
