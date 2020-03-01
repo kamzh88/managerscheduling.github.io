@@ -20,5 +20,10 @@ export default {
     },
     getShifts: function(id) {
         return axios.get("/api/shift/all/" + id);
+    },
+    //Use under TimeSheet component
+    deleteShift: function(id) {
+        console.log(id);
+        return axios.delete("/api/shift/" + id);
     }
 }

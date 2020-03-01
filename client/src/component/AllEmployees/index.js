@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
 import TimeSheet from "../TimeSheet";
+// import Moment from 'react-moment';
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save'
 
 const styles = {
     Card: {
@@ -28,6 +35,13 @@ class AllEmployeesAuth extends Component {
         position: '',
         employees: [],
         shifts: [],
+        isOpen: false,
+        setIsOpen: false,
+        results: [],
+        date: '',
+        shiftStart: '',
+        shiftEnd: '',
+        shiftID: '',
     }
 
     componentDidMount() {
@@ -53,6 +67,27 @@ class AllEmployeesAuth extends Component {
             .catch(err => console.log(err));
     }
 
+
+    showModal = (event) => {
+        // console.log(event);
+        this.setState({ isOpen: true, setIsOpen: true, results: event, shiftID: event._id })
+    }
+
+    hideModal = () => {
+        this.setState({ isOpen: false, setIsOpen: false })
+    };
+
+    deleteShift = (e) => {
+        e.preventDefault();
+        const { shiftEnd, shiftStart, date, shiftID } = this.state;
+        // console.log(shiftID);
+        API.deleteShift(shiftID).then(res => {
+            console.log("success")
+            this.setState({ isOpen: false, setIsOpen: false });
+            this.loadShifts();
+        });
+    }
+
     onSubmit = e => {
         e.preventDefault();
         const { authUser } = this.props;
@@ -73,8 +108,8 @@ class AllEmployeesAuth extends Component {
 
     render() {
 
-        const { firstName, lastName, email, position, employees, shifts } = this.state;
-
+        const { firstName, lastName, email, position, employees } = this.state;
+        const { date, shiftStart, shiftEnd, shiftID } = this.state;
         return (
 
             <Fragment>
@@ -150,11 +185,98 @@ class AllEmployeesAuth extends Component {
                                 <p>Shifts:</p>
                                 <TimeSheet
                                     data={this.state.shifts.filter((shift) => (shift.id === employee._id))}
+                                    showModal={this.showModal}
                                 />
                             </div>
                         </Card>
                     ))}
                 </div>
+                <Modal
+                    show={this.state.isOpen}
+                    size="md"
+                    onHide={this.hideModal}
+                    style={{ opacity: 1, paddingTop: "20%" }}
+                >
+                    <ModalHeader>
+                        <ModalTitle>Edit Shifts</ModalTitle>
+                    </ModalHeader>
+                    <ModalBody>
+                        <form
+                            style={{ display: "flex", flexDirection: "column" }}
+                            onSubmit={this.handleFormSubmit}
+                        >
+                            <TextField
+                                required
+                                style={{ marginBottom: 20 }}
+                                id="date"
+                                label="Select Date"
+                                type="date"
+                                defaultValue={date ? date : "2020-02-24"}
+                                onChange={this.handleChange("date")}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                            <TextField
+                                required
+                                style={{ marginBottom: 20 }}
+                                id="shiftStart"
+                                label="Start Time"
+                                type="time"
+                                defaultValue={shiftStart ? shiftStart : "11:00"}
+                                onChange={this.handleChange("shiftStart")}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 1800, // 5 min
+                                }}
+                            />
+                            <TextField
+                                required
+                                style={{ marginBottom: 20 }}
+                                id="shiftEnd"
+                                label="End Time"
+                                type="time"
+                                defaultValue={shiftEnd ? shiftEnd : "23:00"}
+                                onChange={this.handleChange("shiftEnd")}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                inputProps={{
+                                    step: 1800, // 5 min
+                                }}
+                            />
+                            <Button
+                                style={{ marginBottom: 20 }}
+                                type={"submit"}
+                                fullWidth
+                                variant={"contained"}
+                                color={"primary"}
+                                startIcon={<SaveIcon />}
+                            // disabled={isInvalid}
+                            >
+                                Save
+                            </Button>
+                            <Button
+                                style={{ marginBottom: 20 }}
+                                fullWidth
+                                variant="contained"
+                                color="secondary"
+                                startIcon={<DeleteIcon />}
+                                onClick={this.deleteShift}
+                            >
+                                Delete
+                             </Button>
+                            <Button
+                                variant="contained"
+                                onClick={this.hideModal}
+                            >
+                                Close
+                            </Button>
+                        </form>
+                    </ModalBody>
+                </Modal>
             </Fragment >
 
         )
