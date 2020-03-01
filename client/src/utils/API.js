@@ -25,5 +25,8 @@ export default {
     deleteShift: function(id) {
         console.log(id);
         return axios.delete("/api/shift/" + id);
+    },
+    updateShift: function (shiftData) {
+        console.log(shiftData);
     }
 }
