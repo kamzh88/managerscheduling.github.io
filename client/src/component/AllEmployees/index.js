@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Wrapper from "../Wrapper";
 import API from "../../utils/API";
 import TimeSheet from "../TimeSheet";
-// import Moment from 'react-moment';
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
@@ -79,10 +78,8 @@ class AllEmployeesAuth extends Component {
 
     deleteShift = (e) => {
         e.preventDefault();
-        const { shiftEnd, shiftStart, date, shiftID } = this.state;
-        // console.log(shiftID);
+        const { shiftID } = this.state;
         API.deleteShift(shiftID).then(res => {
-            console.log("success")
             this.setState({ isOpen: false, setIsOpen: false });
             this.loadShifts();
         });
@@ -112,8 +109,10 @@ class AllEmployeesAuth extends Component {
             EndTime: endDate,
         }, {
             shiftID
-        }).then(res => console.log("success"))
-        .catch(err => console.log(err));
+        }).then(res => {
+            this.setState({ isOpen: false, setIsOpen: false });
+            this.loadShifts();
+        }).catch(err => console.log(err));
     }
 
     handleChange = key => e => {
@@ -123,7 +122,7 @@ class AllEmployeesAuth extends Component {
     render() {
 
         const { firstName, lastName, email, position, employees } = this.state;
-        const { date, shiftStart, shiftEnd, shiftID } = this.state;
+        const { date, shiftStart, shiftEnd } = this.state;
         return (
 
             <Fragment>
