@@ -11,11 +11,11 @@ class TimeSheet extends Component {
     state = {
         isOpen: false,
         setIsOpen: false,
+        results: []
     }
 
-    showModal = (id) => {
-        console.log(id)
-        this.setState({ isOpen: true, setIsOpen: true })
+    showModal = (event) => {
+        this.setState({ isOpen: true, setIsOpen: true, results: event })
     }
 
     hideModal = () => {
@@ -23,11 +23,10 @@ class TimeSheet extends Component {
     };
 
     render() {
-
+        console.log(this.state.results)
         return (
             <Fragment>
                 {this.props.data.map((shifts, index) => (
-                    // console.log(shifts)
                     <button
                         key={index}
                         onClick={() => this.showModal({
@@ -69,9 +68,11 @@ class TimeSheet extends Component {
                     style={{ opacity: 1, paddingTop: "20%" }}
                 >
                     <ModalHeader>
-                        <ModalTitle>{}</ModalTitle>
+                        <ModalTitle>Edit Shifts</ModalTitle>
                     </ModalHeader>
-                    <ModalBody>asdfasdf</ModalBody>
+                    <ModalBody>{}
+                            
+                    </ModalBody>
                     <ModalFooter>This is the footer</ModalFooter>
                 </Modal>
             </Fragment>
