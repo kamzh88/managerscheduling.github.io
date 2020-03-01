@@ -6,69 +6,77 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalTitle from "react-bootstrap/ModalTitle";
 
-const TimeSheet = (props) => {
+class TimeSheet extends Component {
 
+    state = {
+        isOpen: false,
+        setIsOpen: false,
+    }
 
-    const [isOpen, setIsOpen] = React.useState(false);
+    showModal = (id) => {
+        console.log(id)
+        this.setState({ isOpen: true, setIsOpen: true })
+    }
 
-    const showModal = () => {
-        setIsOpen(true);
+    hideModal = () => {
+        this.setState({ isOpen: false, setIsOpen: false })
     };
 
-    const hideModal = () => {
-        setIsOpen(false);
-    };
+    render() {
 
-    return (
-        <Fragment>
-            <div>{props.data.map((shifts, index) => (
-                <button
-                    onClick={showModal}
-                    key={index}
+        return (
+            <Fragment>
+                {this.props.data.map((shifts, index) => (
+                    // console.log(shifts)
+                    <button
+                        key={index}
+                        onClick={() => this.showModal({
+                            _id: shifts._id,
+                            StartTime: shifts.StartTime,
+                            EndTime: shifts.EndTime
+                        })}
+                    >
+                        <p>
+                            Date: {
+                                <Moment format="MM/DD/YYYY">
+                                    {shifts.StartTime}
+                                </Moment>
+                            }
+                        </p>
+                        <p>
+                            Start Shift: {
+                                <Moment format="h:mm:ss a">
+                                    {shifts.StartTime}
+                                </Moment>
+
+                            }
+                        </p>
+                        <p>
+                            Shift End: {
+                                <Moment format="h:mm:ss a">
+                                    {shifts.EndTime}
+                                </Moment>
+                            }
+                        </p>
+                        <br></br>
+                    </button>
+                ))}
+
+                <Modal
+                    show={this.state.isOpen}
+                    size="lg"
+                    onHide={this.hideModal}
+                    style={{ opacity: 1, paddingTop: "20%" }}
                 >
-                    <p>
-                        Date: {
-                            <Moment format="MM/DD/YYYY">
-                                {shifts.StartTime}
-                            </Moment>
-                        }
-                    </p>
-                    <p>
-                        Start Shift: {
-                            <Moment format="h:mm:ss a">
-                                {shifts.StartTime}
-                            </Moment>
-
-                        }
-                    </p>
-                    <p>
-                        Shift End: {
-                            <Moment format="h:mm:ss a">
-                                {shifts.EndTime}
-                            </Moment>
-                        }
-                    </p>
-                    <br></br>
-                </button>
-
-            ))}
-
-            </div>
-            <button >Display Modal</button>
-            <Modal
-                show={isOpen}
-                size="lg"
-                onHide={hideModal}
-                style={{ opacity: 1, paddingTop: "20%"}}
-            >
-                <ModalHeader>
-                    <ModalTitle>{console.log(...props)}</ModalTitle>
-                </ModalHeader>
-                <ModalBody>asdfasdf</ModalBody>
-                <ModalFooter>This is the footer</ModalFooter>
-            </Modal>
-        </Fragment>
-    )
+                    <ModalHeader>
+                        <ModalTitle>{}</ModalTitle>
+                    </ModalHeader>
+                    <ModalBody>asdfasdf</ModalBody>
+                    <ModalFooter>This is the footer</ModalFooter>
+                </Modal>
+            </Fragment>
+        )
+    }
 
 }
 
