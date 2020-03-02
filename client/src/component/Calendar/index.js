@@ -26,7 +26,6 @@ class Calendar extends Component {
     }
 
     loadEmployees = () => {
-        console.log(this.props.authUser.uid)
         API.getEmployee(this.props.authUser.uid)
             .then(res =>
                 this.setState({ employees: res.data })
@@ -58,7 +57,7 @@ class Calendar extends Component {
 
     render() {
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
-        console.log(employees);
+      
         return (
             <Fragment>
                 <Wrapper>

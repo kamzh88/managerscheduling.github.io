@@ -68,13 +68,12 @@ class AllEmployeesAuth extends Component {
 
 
     showModal = (event) => {
-        // console.log(event);
         this.setState({ isOpen: true, setIsOpen: true, results: event, shiftID: event._id })
     }
 
     hideModal = () => {
         this.setState({ isOpen: false, setIsOpen: false })
-    };
+    }
 
     deleteShift = (e) => {
         e.preventDefault();
