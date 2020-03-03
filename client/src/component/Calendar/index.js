@@ -4,8 +4,7 @@ import API from '../../utils/API';
 import Wrapper from "../Wrapper";
 import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
-import Moment from 'react-moment';
-import 'moment-timezone';
+
 
 class Calendar extends Component {
 
@@ -45,13 +44,13 @@ class Calendar extends Component {
         e.preventDefault()
         const { id, date, shiftStart, shiftEnd } = this.state;
 
-        let startDate = `${date}T${shiftStart}:00.000`;
+        let startDate = `${date}T${shiftStart}:00.000-05:00`;
         //  <Moment unix tz="America/New_York">
         //     {startDate}
         // </Moment>
         // startDate = startDate.tz('America/New_York').format();
         // console.log(startDate);
-        let endDate = `${date}T${shiftEnd}:00.000`;
+        let endDate = `${date}T${shiftEnd}:00.000-05:00`;
         API.saveShifts({
             StartTime: startDate,
             EndTime: endDate,
