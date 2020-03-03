@@ -6,7 +6,7 @@ const config = {
     authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID
 };
-console.log(config);
+
 const firebaseApp = firebase.initializeApp(config);
 
 export const fireAuth = firebaseApp.auth();
