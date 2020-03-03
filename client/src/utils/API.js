@@ -23,12 +23,10 @@ export default {
     },
     //Use under TimeSheet component
     deleteShift: function(id) {
-        console.log(id);
         return axios.delete("/api/shift/" + id);
     },
     //Use under AllEmployees component
     updateShift: function (shiftData, id) {
-       console.log("/api/shift/" + id.shiftID, shiftData)
         return axios.put("/api/shift/" + id.shiftID, shiftData)
     }
 }
