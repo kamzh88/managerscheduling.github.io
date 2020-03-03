@@ -198,7 +198,9 @@ class AllEmployeesAuth extends Component {
                                 <TimeSheet
                                     data={this.state.shifts.filter((shift) => (shift.id === employee._id))}
                                     showModal={this.showModal}
-                                />
+                                >
+                                    {this.state.shifts.filter((shift) => (shift.id === employee._id))}
+                                </TimeSheet>
                             </div>
                         </Card>
                     ))}
