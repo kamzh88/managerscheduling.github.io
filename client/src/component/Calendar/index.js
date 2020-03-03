@@ -44,13 +44,13 @@ class Calendar extends Component {
         e.preventDefault()
         const { id, date, shiftStart, shiftEnd } = this.state;
 
-        let startDate = `${date}T${shiftStart}:00.000-05:00`;
+        let startDate = `${date}T${shiftStart}:00.000`;
         //  <Moment unix tz="America/New_York">
         //     {startDate}
         // </Moment>
         // startDate = startDate.tz('America/New_York').format();
         // console.log(startDate);
-        let endDate = `${date}T${shiftEnd}:00.000-05:00`;
+        let endDate = `${date}T${shiftEnd}:00.000`;
         API.saveShifts({
             StartTime: startDate,
             EndTime: endDate,
