@@ -41,6 +41,7 @@ class AllEmployeesAuth extends Component {
         shiftStart: '',
         shiftEnd: '',
         shiftID: '',
+        error: null
     }
 
     componentDidMount() {
@@ -52,7 +53,7 @@ class AllEmployeesAuth extends Component {
         API.getShifts(this.props.authUser.uid)
             .then(res =>
                 this.setState({ shifts: res.data })
-            ).catch(err => console.log(err));
+            ).catch(error => this.setState({ error }));
     }
 
     loadEmployees = () => {
@@ -63,7 +64,7 @@ class AllEmployeesAuth extends Component {
                     shifts: this.state.shifts,
                 });
             })
-            .catch(err => console.log(err));
+            .catch(error => this.setState({ error }));
     }
 
 
@@ -81,7 +82,7 @@ class AllEmployeesAuth extends Component {
         API.deleteShift(shiftID).then(res => {
             this.setState({ isOpen: false, setIsOpen: false });
             this.loadShifts();
-        });
+        }).catch(error => this.setState({ error }));
     }
 
     onSubmit = e => {
@@ -95,7 +96,7 @@ class AllEmployeesAuth extends Component {
             position: position,
             uid: authUser.uid
         }).then(res => this.loadEmployees())
-            .catch(err => console.log(err));
+            .catch(error => this.setState({ error }));
     }
 
     handleFormSubmit = e => {
@@ -111,7 +112,7 @@ class AllEmployeesAuth extends Component {
         }).then(res => {
             this.setState({ isOpen: false, setIsOpen: false });
             this.loadShifts();
-        }).catch(err => console.log(err));
+        }).catch(error => this.setState({ error }));
     }
 
     handleChange = key => e => {
@@ -121,7 +122,15 @@ class AllEmployeesAuth extends Component {
     render() {
 
         const { firstName, lastName, email, position, employees } = this.state;
-        const { date, shiftStart, shiftEnd } = this.state;
+        const { date, shiftStart, shiftEnd, error } = this.state;
+        const isInvalid =
+            firstName === '' ||
+            lastName === `` ||
+            email === '' ||
+            position === '';
+            
+
+
         return (
 
             <Fragment>
@@ -174,10 +183,11 @@ class AllEmployeesAuth extends Component {
                             fullWidth
                             variant={"contained"}
                             color={"primary"}
-                        // disabled={isInvalid}
+                            disabled={isInvalid}
                         >
                             Submit
                     </Button>
+                        {error && <p>{error.message}</p>}
                     </form>
                 </Wrapper>
                 <div style={styles.Card}>

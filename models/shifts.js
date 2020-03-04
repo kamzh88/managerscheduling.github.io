@@ -3,10 +3,12 @@ const Schema = mongoose.Schema;
 
 const ShiftSchema = new Schema({
     StartTime: {
-        type: Date
+        type: Date,
+        required: true
     },
     EndTime: {
-        type: Date
+        type: Date,
+        required: true
     },
     id: {
         type: String
