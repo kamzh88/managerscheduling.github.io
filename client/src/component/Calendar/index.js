@@ -143,7 +143,7 @@ class Calendar extends Component {
                         {error && <p>{error.message}</p>}
                     </form>
                 </Wrapper>
-                <div className='schedule-control-section'>
+                <div className='schedule-control-section' style={{ margin: 10 }}>
                     <div className='col-lg-12 control-section'>
                         <div className='control-wrapper'>
                             <ScheduleComponent
