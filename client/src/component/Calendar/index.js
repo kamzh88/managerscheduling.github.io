@@ -5,6 +5,7 @@ import Wrapper from "../Wrapper";
 import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
 
+
 class Calendar extends Component {
 
     state = {
@@ -26,7 +27,6 @@ class Calendar extends Component {
     }
 
     loadEmployees = () => {
-        console.log(this.props.authUser.uid)
         API.getEmployee(this.props.authUser.uid)
             .then(res =>
                 this.setState({ employees: res.data })
@@ -58,7 +58,7 @@ class Calendar extends Component {
 
     render() {
         const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
-        console.log(employees);
+
         return (
             <Fragment>
                 <Wrapper>

@@ -3,7 +3,6 @@ const db = require("../models");
 module.exports = {
     create: function (req, res) {
         const condition = req.body.id;
-        // console.log(req.body);
         db.Shifts
             .create(req.body)
             .then(dbShift => {
@@ -35,7 +34,6 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     update: function(req, res) {
-        // console.log(req);
         db.Shifts.findOneAndUpdate({ _id: req.params.id }, req.body)
         .then(dbShift => res.json(dbShift))
         .catch(err => console.log(err));

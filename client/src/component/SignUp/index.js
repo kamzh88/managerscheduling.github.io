@@ -17,7 +17,6 @@ class SignUp extends Component {
     onSubmit = e => {
         e.preventDefault();
         const { email, passwordOne, userName } = this.state;
-        // console.log(email);
         return fireAuth.createUserWithEmailAndPassword(email, passwordOne).then(() => {
             this.setState({ email: '', passwordOne: '', passwordTwo: '' });
             fireAuth.onAuthStateChanged(user => {

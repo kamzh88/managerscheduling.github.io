@@ -68,13 +68,12 @@ class AllEmployeesAuth extends Component {
 
 
     showModal = (event) => {
-        // console.log(event);
         this.setState({ isOpen: true, setIsOpen: true, results: event, shiftID: event._id })
     }
 
     hideModal = () => {
         this.setState({ isOpen: false, setIsOpen: false })
-    };
+    }
 
     deleteShift = (e) => {
         e.preventDefault();
@@ -199,7 +198,9 @@ class AllEmployeesAuth extends Component {
                                 <TimeSheet
                                     data={this.state.shifts.filter((shift) => (shift.id === employee._id))}
                                     showModal={this.showModal}
-                                />
+                                >
+                                    {this.state.shifts.filter((shift) => (shift.id === employee._id))}
+                                </TimeSheet>
                             </div>
                         </Card>
                     ))}
