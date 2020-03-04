@@ -28,7 +28,7 @@ const NavigationAuth = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
-                        Manager Scheduling Application
+                        Employee Management Application
                     </Typography>
                     <Button
                         color="inherit"
@@ -62,7 +62,7 @@ const NavigationNonAuth = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
-                        Manager Scheduling Application
+                        Employee Management Application
                     </Typography>
                     <Button color="inherit" component={Link} to="/">Home</Button>
                     <Button color="inherit" component={Link} to="/SignUp">SignUp</Button>

@@ -9,6 +9,8 @@ import Home from './component/Home';
 import AllEmployees from './component/AllEmployees';
 import { fireAuth } from "./component/Firebase/index";
 
+
+
 class App extends Component {
   state = {
     authUser: null
@@ -40,6 +42,7 @@ class App extends Component {
             render={props => (<AllEmployees authUser={this.state.authUser} {...props} />)}
           />
         </Switch>
+        
       </Router>
     )
   }
