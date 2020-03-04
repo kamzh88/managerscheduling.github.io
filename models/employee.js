@@ -7,11 +7,11 @@ const EmployeeSchema = new Schema({
     },
     firstName: {
         type: String,
-        required: "First Name is Required"
+        required: true
     },
     lastName: {
         type: String,
-        required: "Last Name is Required"
+        required: true
     },
     position: {
         type: String,

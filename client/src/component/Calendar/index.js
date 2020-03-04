@@ -5,7 +5,6 @@ import Wrapper from "../Wrapper";
 import { Inject, ScheduleComponent, TimelineViews, Resize, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import "./styles/style.css";
 
-
 class Calendar extends Component {
 
     state = {
@@ -14,7 +13,8 @@ class Calendar extends Component {
         date: '',
         shiftStart: '',
         shiftEnd: '',
-        shifts: []
+        shifts: [],
+        error: null,
     }
 
     componentDidMount() {
@@ -53,11 +53,18 @@ class Calendar extends Component {
         }).then(res => {
             this.setState({ id: '', date: '', shiftStart: '', shiftEnd: '' });
             this.loadShifts();
-        }).catch(err => console.log(err));
+        }).catch(error => this.setState({ error }));
     }
 
     render() {
-        const { employees, id, date, shiftStart, shiftEnd, shifts } = this.state;
+
+        const { employees, id, date, shiftStart, shiftEnd, shifts, error } = this.state;
+
+        const isInvalid =
+            id === '' ||
+            date === '' ||
+            shiftStart === '' ||
+            shiftEnd === ``;
 
         return (
             <Fragment>
@@ -66,6 +73,7 @@ class Calendar extends Component {
                         onSubmit={this.onSubmit}
                     >
                         <TextField
+                            name="employeeName"
                             required
                             style={{ marginBottom: 20 }}
                             select
@@ -86,7 +94,7 @@ class Calendar extends Component {
                             id="date"
                             label="Select Date"
                             type="date"
-                            value={date ? date : "2020-02-24"}
+                            value={date ? date : "2020-03-01"}
                             onChange={this.handleChange("date")}
                             InputLabelProps={{
                                 shrink: true,
@@ -128,10 +136,11 @@ class Calendar extends Component {
                             fullWidth
                             variant={"contained"}
                             color={"primary"}
-                        // disabled={isInvalid}
+                            disabled={isInvalid}
                         >
                             Submit
                         </Button>
+                        {error && <p>{error.message}</p>}
                     </form>
                 </Wrapper>
                 <div className='schedule-control-section'>
