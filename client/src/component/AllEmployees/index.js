@@ -15,7 +15,8 @@ const styles = {
     Card: {
         marginTop: 30,
         height: 540,
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        error: null
     }
 }
 
@@ -128,8 +129,11 @@ class AllEmployeesAuth extends Component {
             lastName === `` ||
             email === '' ||
             position === '';
-            
 
+        const isInvalidTwo =
+            date === '' ||
+            shiftStart === '' ||
+            shiftEnd === '';
 
         return (
 
@@ -278,7 +282,7 @@ class AllEmployeesAuth extends Component {
                                 variant={"contained"}
                                 color={"primary"}
                                 startIcon={<SaveIcon />}
-                            // disabled={isInvalid}
+                                disabled={isInvalidTwo}
                             >
                                 Save
                             </Button>
@@ -298,6 +302,8 @@ class AllEmployeesAuth extends Component {
                             >
                                 Close
                             </Button>
+
+                            {error && <p>{error.message}</p>}
                         </form>
                     </ModalBody>
                 </Modal>
