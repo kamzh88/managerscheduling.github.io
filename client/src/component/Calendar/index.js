@@ -43,8 +43,8 @@ class Calendar extends Component {
     onSubmit = (e) => {
         e.preventDefault()
         const { id, date, shiftStart, shiftEnd } = this.state;
-        let startDate = `${date}T${shiftStart}:00.000-5:00`;
-        let endDate = `${date}T${shiftEnd}:00.000-5:00`;
+        let startDate = `${date}T${shiftStart}:00.000`;
+        let endDate = `${date}T${shiftEnd}:00.000`;
         API.saveShifts({
             StartTime: startDate,
             EndTime: endDate,

@@ -18,9 +18,9 @@ class TimeSheet extends Component {
                             EndTime: shifts.EndTime
                         })}
                     >
-                        <p> Date: {<Moment format="MM/DD/YYYY" tz="America/New_York">{shifts.StartTime}</Moment>}</p>
-                        <p> Start Shift: {<Moment format="h:mm:ss a" tz="America/New_York">{shifts.StartTime}</Moment>}</p>
-                        <p> Shift End: {<Moment format="h:mm:ss a" tz="America/New_York">{shifts.EndTime}</Moment>}</p>
+                        <p> Date: {<Moment format="MM/DD/YYYY">{shifts.StartTime}</Moment>}</p>
+                        <p> Start Shift: {<Moment format="h:mm:ss a">{shifts.StartTime}</Moment>}</p>
+                        <p> Shift End: {<Moment format="h:mm:ss a">{shifts.EndTime}</Moment>}</p>
                         <br></br>
                         {this.props.children.map((shifts, index) => (
                             <p key={index}>{shifts.StartTime}</p>
