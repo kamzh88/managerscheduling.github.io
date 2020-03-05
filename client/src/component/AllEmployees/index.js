@@ -96,8 +96,10 @@ class AllEmployeesAuth extends Component {
             email: email,
             position: position,
             uid: authUser.uid
-        }).then(res => this.loadEmployees())
-            .catch(error => this.setState({ error }));
+        }).then(res => {
+            this.setState({ firstName: '', lastName: '', email: '', position: '' })
+            this.loadEmployees()
+        }).catch(error => this.setState({ error, firstName: '', lastName: '', email: '', position: '' }));
     }
 
     handleFormSubmit = e => {
