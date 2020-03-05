@@ -30,7 +30,7 @@ class AllEmployeesAuth extends Component {
 
     state = {
         firstName: '',
-        lastName: '',
+        phoneNumber: '',
         email: '',
         position: '',
         employees: [],
@@ -89,17 +89,19 @@ class AllEmployeesAuth extends Component {
     onSubmit = e => {
         e.preventDefault();
         const { authUser } = this.props;
-        const { firstName, lastName, email, position } = this.state;
+        const { firstName, phoneNumber, email, position } = this.state;
         API.saveEmployee({
             firstName: firstName,
-            lastName: lastName,
+            phoneNumber: phoneNumber,
             email: email,
             position: position,
             uid: authUser.uid
         }).then(res => {
-            this.setState({ firstName: '', lastName: '', email: '', position: '' })
+            this.setState({ firstName: '', phoneNumber: '', email: '', position: '' })
             this.loadEmployees()
-        }).catch(error => this.setState({ error, firstName: '', lastName: '', email: '', position: '' }));
+        }).catch(error => {
+            this.setState({ error, firstName: '', phoneNumber: '', email: '', position: '' })
+        });
     }
 
     handleFormSubmit = e => {
@@ -124,11 +126,11 @@ class AllEmployeesAuth extends Component {
 
     render() {
 
-        const { firstName, lastName, email, position, employees } = this.state;
+        const { firstName, phoneNumber, email, position, employees } = this.state;
         const { date, shiftStart, shiftEnd, error } = this.state;
         const isInvalid =
             firstName === '' ||
-            lastName === `` ||
+            phoneNumber === `` ||
             email === '' ||
             position === '';
 
@@ -162,9 +164,10 @@ class AllEmployeesAuth extends Component {
                             variant={"outlined"}
                             required
                             type={"text"}
-                            label={"Last Name"}
-                            value={lastName}
-                            onChange={this.handleChange("lastName")}
+                            placeholder="(888)888-8888"
+                            label={"Phone Number"}
+                            value={phoneNumber}
+                            onChange={this.handleChange("phoneNumber")}
                         />
                         <TextField
                             style={{ marginBottom: 24 }}
@@ -207,8 +210,9 @@ class AllEmployeesAuth extends Component {
                             <div
                                 style={{ overflow: "auto", padding: 10 }}
                             >
-                                <p>Name: {employee.firstName} {employee.lastName}</p>
+                                <p>Name: {employee.firstName} </p>
                                 <p>Position: {employee.position}</p>
+                                <p>Phone Number: {employee.phoneNumber}</p>
                                 <p>Email: {employee.email}</p>
                                 <p>Shifts:</p>
                                 <TimeSheet

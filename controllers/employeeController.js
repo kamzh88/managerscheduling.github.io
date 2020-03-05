@@ -6,12 +6,16 @@ module.exports = {
         db.Employees
             .create(req.body)
             .then(dbEmployee => {
+                console.log(res)
                 res.json(dbEmployee)
                 return db.Users.findOneAndUpdate({ uid: condition }, { $push: { employees: dbEmployee._id } }, { new: true });
 
-            }).catch(err => res.status(422).json(err));
+            }).catch(err => {
+           
+                res.status(422).json(err)
+            });
     },
-    findbyId: function (req, res) { 
+    findbyId: function (req, res) {
         db.Users
             .findOne({ uid: req.params.id })
             .populate("employees")

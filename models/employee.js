@@ -3,15 +3,16 @@ const Schema = mongoose.Schema;
 
 const EmployeeSchema = new Schema({
     uid: {
-        type: String, 
+        type: String,
     },
     firstName: {
         type: String,
         required: true
     },
-    lastName: {
+    phoneNumber: {
         type: String,
-        required: true
+        required: true,
+        match: [/\(*\d{3}\)*( |-)*\d{3}( |-)*\d{4}/, "Please enter a valid phone number"]
     },
     position: {
         type: String,
