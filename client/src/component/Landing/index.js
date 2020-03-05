@@ -3,7 +3,7 @@ import { Jumbotron, Container, Card, Row, Col } from 'react-bootstrap'
 
 const Landing = () => {
     return (
-        <div style={{ overflowY: 'scroll', marginBottom: '10%', height: 700 }}>
+        <Fragment>
             <Jumbotron fluid style={{ height: 250 }}>
                 <Container>
                     <h1>Employee Management Application</h1>
@@ -33,7 +33,7 @@ const Landing = () => {
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </Fragment>
     )
 }
 

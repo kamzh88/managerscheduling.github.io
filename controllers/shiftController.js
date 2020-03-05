@@ -36,6 +36,6 @@ module.exports = {
     update: function(req, res) {
         db.Shifts.findOneAndUpdate({ _id: req.params.id }, req.body)
         .then(dbShift => res.json(dbShift))
-        .catch(err => console.log(err));
+        .catch(err => res.status(422).json(err));
     }
 };
