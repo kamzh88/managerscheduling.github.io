@@ -8,7 +8,6 @@ module.exports = {
             .then(dbEmployee => {
                 res.json(dbEmployee)
                 return db.Users.findOneAndUpdate({ uid: condition }, { $push: { employees: dbEmployee._id } }, { new: true });
-
             }).catch(err => {
                 res.status(422).json(err)
             });
